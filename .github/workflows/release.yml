@@ -1,0 +1,60 @@
+name: Release
+
+on:
+    push:
+        tags:
+            - "*"
+
+env:
+    typst_coverletter: Typst-ModernPro-Coverletter
+
+jobs:
+    build:
+        name: release
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Zip
+              id: zip
+              run: |
+                  mkdir ${{ env.typst_coverletter }}
+                  cp ./modernpro-coverletter.typ ./example_Coverletter.typ ${{ env.typst_coverletter }}
+                  zip -r ${{ env.typst_coverletter }}.zip ./${{ env.typst_coverletter }}
+
+                  echo "tag_name=$(git tag --sort version:refname | tail -n 1)" >> "$GITHUB_ENV"
+
+            - name: Create Release
+              id: create_release
+              uses: actions/create-release@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+                  VERSION: ${{ github.ref }}
+              with:
+                  tag_name: ${{ github.ref }}
+                  release_name: ${{ github.ref }}
+                  draft: false
+                  prerelease: false
+
+            - name: Upload coverletter zip
+              id: upload-coverletter-zip
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./${{ env.typst_coverletter }}.zip
+                  asset_name: ${{ env.typst_coverletter }}-${{ github.ref_name }}.zip
+                  asset_content_type: application/zip
+
+            - name: Upload coverletter
+              id: upload-coverletter-double
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./modernpro-coverletter.typ
+                  asset_name: modernpro-coverletter.typ
+                  asset_content_type: text/typst

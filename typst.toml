@@ -1,0 +1,14 @@
+[package]
+name = "modernpro-coverletter"
+version = "0.0.1"
+entrypoint = "modernpro-coverletter.typ"
+authors = [ "academic-template-collective",]
+repository = "https://example.invalid/academic-templates/modernpro-coverletter"
+license = "MIT"
+description = "A cover letter template with modern Sans font for job applications and other formal letters."
+categories = [ "coverletter", "CV", "Job",]
+
+[template]
+path = "template"
+entrypoint = "main.typ"
+thumbnail = "thumbnail.png"
