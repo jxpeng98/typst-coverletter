@@ -6,7 +6,8 @@ authors = [ "academic-template-collective",]
 repository = "https://example.invalid/academic-templates/modernpro-coverletter"
 license = "MIT"
 description = "A cover letter template with modern Sans font for job applications and other formal letters."
-categories = [ "coverletter", "CV", "Job",]
+keywords = [ "coverletter", "CV", "Job",]
+categories = [ "cv", "utility",]
 
 [template]
 path = "template"
