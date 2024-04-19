@@ -1,9 +1,9 @@
 #import "@local/modernpro-coverletter:0.0.1": *
 
-// #import "@modernpro-coverletter": * 
+// #import "@modernpro-coverletter": *
 
 #show: main.with(
-  fonttype: "macfont",
+  font-type: "macfont",
   name: "Exam Example",
   address: [London, UK],
   contacts: (
@@ -13,9 +13,9 @@
     (text: "123@example.com", link: "mailto:123@example.com"),
   ),
   recipient: (
-    starttitle: "Dear Committee Members,",
-    cltitle: "Job Application for Hiring Manager",
-    date: "2024-01-01",
+    start-title: [Dear Committee Members,],
+    cl-title: [Job Application for Hiring Manager],
+    date: [2024-01-01],
     department: [Department of Example],
     institution: [University of Example],
     address: [London, UK],
@@ -24,4 +24,3 @@
 )
 
 #lorem(300)
-
