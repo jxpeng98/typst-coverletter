@@ -20,7 +20,7 @@ jobs:
               id: zip
               run: |
                   mkdir ${{ env.typst_coverletter }}
-                  cp ./modernpro-coverletter.typ ./example_coverletter.typ ${{ env.typst_coverletter }}
+                  cp ./modernpro-coverletter.typ ./example-coverletter.typ ${{ env.typst_coverletter }}
                   zip -r ${{ env.typst_coverletter }}.zip ./${{ env.typst_coverletter }}
 
                   echo "tag_name=$(git tag --sort version:refname | tail -n 1)" >> "$GITHUB_ENV"
