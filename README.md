@@ -63,4 +63,4 @@ The template will have the following features:
 
 ## Preview
 
-![Cover Letter Preview](https://minioapi.pjx.ac.cn/img1/2024/04/71b012412bc411ed8b751e12d91d8636.png)
+![Cover Letter Preview](https://minioapi.pjx.ac.cn/img1/2024/07/522ef6ebbddcdb3f20e1a80b4ca25d48.png)
