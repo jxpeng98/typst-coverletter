@@ -1,6 +1,6 @@
-// #import "@local/modernpro-coverletter:0.0.1": *
+#import "@local/modernpro-coverletter:0.0.2": *
 
-#import "modernpro-coverletter.typ": *
+// #import "modernpro-coverletter.typ": *
 
 #show: main.with(
   font-type: "Acumin Pro",
