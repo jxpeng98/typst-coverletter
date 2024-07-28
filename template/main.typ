@@ -1,4 +1,4 @@
-#import "@preview/modernpro-coverletter:0.0.1": *
+#import "@preview/modernpro-coverletter:0.0.2": *
 
 #show: main.with(
   font-type: "Roboto",
