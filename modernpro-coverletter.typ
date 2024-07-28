@@ -10,7 +10,7 @@
 ///////////////////////////////
 
 #let main(
-  font-type: "openfont",
+  font-type: "",
   name: "",
   address: "",
   contacts: (),
@@ -37,48 +37,7 @@
     [#v(2pt)]
   }
 
-  // Set font type for all text
-  // #let font-type = "macfont"
-  let font-head = {
-    if font-type == "macfont" {
-      "Helvetica Neue"
-    } else if font-type == "openfont" {
-      "PT Sans"
-    } else {
-      "Times New Roman"
-    }
-  }
-
-  let font-term = {
-    if font-type == "macfont" {
-      "Heiti TC"
-    } else if font-type == "openfont" {
-      "PT Sans"
-    } else {
-      "Times New Roman"
-    }
-  }
-
-  let font-descript = {
-    if font-type == "macfont" {
-      "Heiti SC"
-    } else if font-type == "openfont" {
-      "PT Sans"
-    } else {
-      "Times New Roman"
-    }
-  }
-
-  let font-info = {
-    if font-type == "macfont" {
-      "Helvetica"
-    } else if font-type == "openfont" {
-      "PT Sans"
-    } else {
-      "Times New Roman"
-    }
-  }
-
+  // set the recipient
   let recipient-generate(
     start-title,
     cl-title,
@@ -94,18 +53,18 @@
         if department != [] {
           text(
             10pt,
-            font: font-info,
+            font: font-type,
             fill: subheadings-colour,
             weight: "bold",
           )[#department]
         }
         h(1fr)
         if date != "" {
-          text(10pt, font: font-info, fill: primary-colour, weight: "light")[#date\ ]
+          text(10pt, font: font-type, fill: primary-colour, weight: "light")[#date\ ]
         } else {
           text(
             10pt,
-            font: font-info,
+            font: font-type,
             fill: primary-colour,
             weight: "light",
           )[ #datetime.today(offset: auto).display("[day] [month repr:long] [year]")\ ]
@@ -114,7 +73,7 @@
         if institution != [] {
           text(
             10pt,
-            font: font-info,
+            font: font-type,
             fill: subheadings-colour,
             weight: "bold",
           )[#institution\ ]
@@ -123,7 +82,7 @@
         if address != [] {
           text(
             10pt,
-            font: font-info,
+            font: font-type,
             fill: headings-colour,
             weight: "light",
           )[#address\ ]
@@ -131,7 +90,7 @@
         if postcode != [] {
           text(
             10pt,
-            font: font-info,
+            font: font-type,
             fill: headings-colour,
             weight: "light",
           )[#postcode ]
@@ -139,60 +98,71 @@
       },
     )
 
-    align(left, text(
-      12pt,
-      font: font-head,
-      fill: primary-colour,
-      weight: "bold",
-    )[#upper(cl-title)])
+    align(
+      left,
+      text(
+        12pt,
+        font: font-type,
+        fill: primary-colour,
+        weight: "bold",
+      )[#upper(cl-title)],
+    )
     v(0.1em)
-    set text(11pt, font: font-head, fill: primary-colour, weight: "regular")
+    set text(11pt, font: font-type, fill: primary-colour, weight: "regular")
 
-    [#start-title]
+    [#start-title,]
   }
 
   // show contact details
   let display(contacts) = {
     set text(
       11pt,
-      font: font-term,
+      font: font-type,
       fill: headings-colour,
       weight: "medium",
       top-edge: "baseline",
       bottom-edge: "baseline",
       baseline: 2pt,
     )
-    contacts.map(contact =>{
-      if contact.link == none [
-        contact.text
-      ] else {
-        link(contact.link)[#{ contact.text }]
-      }
-    }).join(" | ")
+    contacts
+      .map(contact => {
+          if contact.link == none [
+            contact.text
+          ] else {
+            link(contact.link)[#{
+                contact.text
+              }]
+          }
+        })
+      .join(" | ")
   }
 
-  set page(margin: (left: 2cm, right: 2cm, top: 3.2cm, bottom: 1.5cm), header: {
-    // Head Name Section
-    text(
-      25pt,
-      font: font-head,
-      fill: primary-colour,
-      weight: "light",
-      top-edge: "baseline",
-      bottom-edge: "baseline",
-      baseline: 12pt,
-    )[#align(center, [#name])]
-    text(
-      11pt,
-      font: font-descript,
-      fill: headings-colour,
-      weight: "medium",
-      top-edge: "baseline",
-      bottom-edge: "baseline",
-    )[#align(center, [#address])]
-    align(center)[#display(contacts)]
-    line(length: 100%, stroke: 0.5pt + primary-colour)
-  }, header-ascent: 1em)
+  set page(
+    margin: (left: 2cm, right: 2cm, top: 3.2cm, bottom: 1.5cm),
+    header: {
+      // Head Name Section
+      text(
+        25pt,
+        font: font-type,
+        fill: primary-colour,
+        weight: "light",
+        top-edge: "baseline",
+        bottom-edge: "baseline",
+        baseline: 12pt,
+      )[#align(center, [#name])]
+      text(
+        11pt,
+        font: font-type,
+        fill: headings-colour,
+        weight: "medium",
+        top-edge: "baseline",
+        bottom-edge: "baseline",
+      )[#align(center, [#address])]
+      align(center)[#display(contacts)]
+      line(length: 100%, stroke: 0.5pt + primary-colour)
+    },
+    header-ascent: 1em,
+  )
 
   // Add recipient details
   recipient-generate(
@@ -207,12 +177,14 @@
 
   set par(justify: true, first-line-indent: 2em)
 
-  set text(11pt, font: font-info, fill: primary-colour, weight: "regular")
+  set text(11pt, font: font-type, fill: primary-colour, weight: "regular")
 
   mainbody
 
-  set text(11pt, font: font-info, fill: primary-colour, weight: "regular")
-  [Sincerely,\ ]
+  set text(11pt, font: font-type, fill: primary-colour, weight: "regular")
+
+  v(1pt)
+  [Sincerely,]
   v(1pt)
   [*#name*]
 }

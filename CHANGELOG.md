@@ -1,6 +1,7 @@
-- Initial version `v0.0.1` is ready from the Typst Universe.
+## improvements
 
-You can use the following command to create a new cover letter project with this template.
+- clean the code and remove the unused pre-settings.
+- Kepp all fonts in the same style to make it more consistent.
 
 ```bash
 typst init @preview/modernpro-coverletter

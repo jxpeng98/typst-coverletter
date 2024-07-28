@@ -1,7 +1,7 @@
 #import "@preview/modernpro-coverletter:0.0.1": *
 
 #show: main.with(
-  font-type: "openfont",
+  font-type: "Roboto",
   name: [#lorem(2)],
   address: [#lorem(4)],
   contacts: (
