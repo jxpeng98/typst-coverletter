@@ -89,7 +89,7 @@
                 contact.text
               }]
           } else [
-            contact.text
+            #{contact.text}
           ]
         })
       .join(" | ")
