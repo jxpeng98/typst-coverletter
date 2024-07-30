@@ -1,6 +1,6 @@
 [package]
 name = "modernpro-coverletter"
-version = "0.0.2"
+version = "0.0.3"
 entrypoint = "modernpro-coverletter.typ"
 authors = [ "academic-template-collective",]
 repository = "https://example.invalid/academic-templates/modernpro-coverletter"
