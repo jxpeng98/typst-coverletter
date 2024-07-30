@@ -1,4 +1,4 @@
-#import "@local/modernpro-coverletter:0.0.2": *
+#import "@local/modernpro-coverletter:0.0.3": *
 
 // #import "modernpro-coverletter.typ": *
 
@@ -23,4 +23,4 @@
   ),
 )
 
-#lorem(400)
+#lorem(500)

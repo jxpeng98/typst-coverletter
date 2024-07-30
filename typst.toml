@@ -1,6 +1,6 @@
 [package]
 name = "modernpro-coverletter"
-version = "0.0.2"
+version = "0.0.3"
 entrypoint = "modernpro-coverletter.typ"
 authors = [ "jxpeng98",]
 repository = "https://github.com/jxpeng98/typst-coverletter"
