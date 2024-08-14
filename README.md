@@ -29,6 +29,9 @@ This package provides one **cover letter** template and one **statement** templa
 ### Cover Letter
 
 ```typst
+#import "@preview/fontawesome:0.4.0": *
+#import "@preview/modernpro-coverletter:0.0.3": *
+
 #show: coverletter.with(
   font-type: "PT Serif",
   name: [example],
