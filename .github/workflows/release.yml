@@ -20,7 +20,8 @@ jobs:
               id: zip
               run: |
                   mkdir ${{ env.typst_coverletter }}
-                  cp ./modernpro-coverletter.typ ./example-coverletter.typ ${{ env.typst_coverletter }}
+                  cp ./modernpro-coverletter.typ ./example-coverletter.typ ./example-statement.typ ${{ env.typst_coverletter }}
+                  cp -r template/* ${{ env.typst_coverletter }}
                   zip -r ${{ env.typst_coverletter }}.zip ./${{ env.typst_coverletter }}
 
                   echo "tag_name=$(git tag --sort version:refname | tail -n 1)" >> "$GITHUB_ENV"
@@ -49,7 +50,7 @@ jobs:
                   asset_content_type: application/zip
 
             - name: Upload coverletter
-              id: upload-coverletter-double
+              id: upload-coverletter
               uses: actions/upload-release-asset@v1
               env:
                   GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
