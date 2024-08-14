@@ -66,8 +66,6 @@ elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
 fi
 
 
-
-
 git add .
 git commit -m "Update version to $1"
 git tag -a $1 -m "$1"

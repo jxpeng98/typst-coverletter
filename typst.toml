@@ -11,5 +11,5 @@ categories = [ "cv", "utility",]
 
 [template]
 path = "template"
-entrypoint = "main.typ"
+entrypoint = "coverletter.typ"
 thumbnail = "thumbnail.png"

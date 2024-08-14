@@ -29,7 +29,7 @@ categories = ["cv", "utility"]
 
 [template]
 path = "template"
-entrypoint = "main.typ"
+entrypoint = "coverletter.typ"
 thumbnail = "thumbnail.png"
 """
 
@@ -93,37 +93,39 @@ with open(typ_file_path, 'w', encoding='utf-8') as file:
 print("Template File has been updated with the new version and date.")
 
 # update the main.typ file
+def update_main(main_typ_file_path, new_version):
+    # define the content to prepend
+    new_content_to_prepend = f'#import "@preview/modernpro-coverletter:{new_version}": *\n\n'# Ensuring only the intended newlines are included
 
+    # Read the existing content of the file
+    with open(main_typ_file_path, 'r', encoding='utf-8') as file:
+        original_content = file.read()
+        
+    # Pattern to match the existing header, assuming it's always at the start of the file
+    header_pattern = re.compile(
+        r'^#import\s+"@preview/modernpro-coverletter:([^"]+)"\s*:\s*\*\s*\n',
+        re.MULTILINE
+    )
+
+    # Check if the existing header is present and replace it
+    if header_pattern.search(original_content):
+        updated_content = header_pattern.sub(new_content_to_prepend, original_content, count=1)
+    else:
+        # If no header is found, prepend new header without adding an extra newline at the beginning
+        updated_content = new_content_to_prepend.rstrip('\n') + original_content
+        
+    # Write the updated content back to the file
+    with open(main_typ_file_path, 'w', encoding='utf-8') as file:
+        file.write(updated_content)
+        
+    print(f"Main Typ File {main_typ_file_path} has been updated with the new version.")
+    
 # define the path to main.typ file
-main_typ_file_path = 'template/main.typ'
+main_typ_file_coverletter_path = 'template/coverletter.typ'
+main_typ_file_statement_path = 'template/statement.typ'
 
-# define the content to prepend
-new_content_to_prepend = f"""#import "@preview/modernpro-coverletter:{new_version}": *
-
-"""  # Ensuring only the intended newlines are included
-
-# Read the existing content of the file
-with open(main_typ_file_path, 'r', encoding='utf-8') as file:
-    original_content = file.read()
-    
-# Pattern to match the existing header, assuming it's always at the start of the file
-header_pattern = re.compile(
-    r'^#import\s+"@preview/modernpro-coverletter:([^"]+)"\s*:\s*\*\s*\n',
-    re.MULTILINE
-)
-
-# Check if the existing header is present and replace it
-if header_pattern.search(original_content):
-    updated_content = header_pattern.sub(new_content_to_prepend, original_content, count=1)
-else:
-    # If no header is found, prepend new header without adding an extra newline at the beginning
-    updated_content = new_content_to_prepend.rstrip('\n') + original_content
-    
-# Write the updated content back to the file
-with open(main_typ_file_path, 'w', encoding='utf-8') as file:
-    file.write(updated_content)
-    
-print("Main.typ file has been updated with the new version.")
+update_main(main_typ_file_coverletter_path, new_version)
+update_main(main_typ_file_statement_path, new_version)
 
 
 

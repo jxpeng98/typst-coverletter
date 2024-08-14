@@ -1,9 +1,9 @@
 #import "@preview/fontawesome:0.4.0": *
-#import "modernpro-coverletter.typ": *
+#import "@preview/modernpro-coverletter:0.0.3": *
 
 #show: coverletter.with(
   font-type: "PT Serif",
-  name: [Example EE],
+  name: [],
   address: [],
   contacts: (
     (text: [#fa-icon("location-dot") UK]),
@@ -13,17 +13,17 @@
     (text: [#fa-icon("envelope") example\@example.com], link: "mailto:example@example.com"),
   ),
   recipient: (
-    start-title: [Dear Committee Members,],
-    cl-title: [Job Application for Hiring Manager],
+    start-title: [],
+    cl-title: [],
     date: [],
-    department: [Department of Example],
-    institution: [University of Example],
-    address: [London, UK],
-    postcode: [W1 S2],
+    department: [],
+    institution: [],
+    address: [],
+    postcode: [],
   ),
 )
 
 #set par(justify: true, first-line-indent: 2em)
 #set text(weight: "regular", size: 12pt)
 
-#lorem(400)
+// Main body of the cover letter
