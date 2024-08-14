@@ -24,43 +24,104 @@ git clone https://github.com/jxpeng98/typst-coverletter.git
 
 ## Features
 
-The template will have the following features:
+This package provides one **cover letter** template and one **statement** template.
+
+### Cover Letter
 
 ```typst
-#show: main.with(
-  font-type: "openfont",
-  name: [#lorem(2)],
-  address: [#lorem(4)],
+#show: coverletter.with(
+  font-type: "PT Serif",
+  name: [example],
+  address: [],
   contacts: (
-    (text: "08856", link: ""),
-    (text: "example.com", link: "https://www.example.com"),
-    (text: "github.com", link: "https://www.github.com"),
-    (text: "123@example.com", link: "mailto:123@example.com"),
+    (text: [#fa-icon("location-dot") UK]),
+    (text: [123-456-789], link: "tel:123-456-789"),
+    (text: [example.com], link: "https://www.example.com"),
+    (text: [github], link: "https://github.com/"),
+    (text: [example\@example.com], link: "mailto:example@example.com"),
   ),
   recipient: (
-    start-title: [Dear],
-    cl-title: [Job Application for Hiring Manager],
+    start-title: [],
+    cl-title: [],
     date: [],
-    department: [#lorem(2)],
-    institution: [#lorem(2)],
-    address: [#lorem(4)],
-    postcode: [#lorem(1)],
+    department: [],
+    institution: [],
+    address: [],
+    postcode: [],
   ),
 )
 
-#lorem(300)
+#set par(justify: true, first-line-indent: 2em)
+#set text(weight: "regular", size: 12pt)
 ```
 
-- `font-type`: The font type of the cover letter. It can be "macfont" or "openfont".
-- recipient: The recipient information of the cover letter.
-  - `start-title`: The start title of the letter.
-  - `cl-title`: The title of the letter (i.g., Job Application for Hiring Manager).
-  - date: The date of the letter(If "" or [], it will generate the current date).
-  - department: The department of the recipient, can be "" or [].
-  - institution: The institution of the recipient.
-  - address: The address of the recipient.
-  - postcode: The postcode of the recipient.
+| Parameter | Description |
+| --- | --- |
+| `font-type` | The font type of the cover letter, e.g. "PT Serif" |
+| `name` | The name of the sender |
+| `address` | The address of the sender |
+| `contacts` | The contact information of the sender(text:[], link: []) |
+
+| Parameter in Recipient | Description |
+| --- | --- |
+| `start-title` | The start title of the letter |
+| `cl-title` | The title of the letter (i.g., Job Application for Hiring Manager) |
+| `date` | The date of the letter(If "" or [], it will generate the current date) |
+| `department` | The department of the recipient, can be "" or [] |
+| `institution` | The institution of the recipient |
+| `address` | The address of the recipient |
+| `postcode` | The postcode of the recipient |
+
+### Statement
+
+```typst
+#import "@preview/fontawesome:0.4.0": *
+#import "@preview/modernpro-coverletter:0.0.3": *
+
+#show: statement.with(
+  font-type: "PT Serif",
+  name: [],
+  address: [],
+  contacts: (
+    (text: [#fa-icon("location-dot")]),
+    (text: [#fa-icon("mobile") 123-456-789], link: "tel:123-456-789"),
+    (text: [#fa-icon("link") example.com], link: "https://www.example.com"),
+    (text: [#fa-icon("github") github], link: "https://github.com/"),
+    (text: [#fa-icon("envelope") example\@example.com], link: "mailto:example@example.com"),
+  ),
+)
+
+#v(1em)
+#align(center, text(13pt, weight: "semibold")[#underline([Title])])
+#set par(first-line-indent: 2em, justify: true)
+#set text(11pt, weight: "regular")
+
+// Main body of the statement
+```
+
+| Parameter | Description |
+| --- | --- |
+| `font-type` | The font type of the cover letter, e.g. "PT Serif" |
+| `name` | The name of the sender |
+| `address` | The address of the sender |
+| `contacts` | The contact information of the sender(text:[], link: []) |
+
+### Icons
+
+The new version also integrates the FontAwesome icons. You can use the `#fa-icon("icon")` function to insert the icons in the cover letter or statement template as shown above.
+
+You just need to import the FontAwesome package at the beginning of the document.
+
+```typst
+#import "@preview/fontawesome:0.4.0": *
+```
 
 ## Preview
 
-![Cover Letter Preview](https://minioapi.pjx.ac.cn/img1/2024/07/522ef6ebbddcdb3f20e1a80b4ca25d48.png)
+### Cover Letter
+
+![Cover Letter Preview](https://minioapi.pjx.ac.cn/img1/2024/08/79decf8975b899d31b9dc76c5466a01a.png)
+
+### Statement
+
+![Statement Preview](https://minioapi.pjx.ac.cn/img1/2024/08/0483a06862932e1e9a9f1589676ce862.png)

@@ -1,9 +1,9 @@
 #import "@preview/fontawesome:0.4.0": *
-#import "modernpro-coverletter.typ": *
+#import "@preview/modernpro-coverletter:0.0.3": *
 
-#show: coverletter.with(
+#show: statement.with(
   font-type: "PT Serif",
-  name: [Example EE],
+  name: [],
   address: [],
   contacts: (
     (text: [#fa-icon("location-dot") UK]),
@@ -12,18 +12,11 @@
     (text: [#fa-icon("github") github], link: "https://github.com/"),
     (text: [#fa-icon("envelope") example\@example.com], link: "mailto:example@example.com"),
   ),
-  recipient: (
-    start-title: [Dear Committee Members,],
-    cl-title: [Job Application for Hiring Manager],
-    date: [],
-    department: [Department of Example],
-    institution: [University of Example],
-    address: [London, UK],
-    postcode: [W1 S2],
-  ),
 )
 
-#set par(justify: true, first-line-indent: 2em)
-#set text(weight: "regular", size: 12pt)
+#v(1em)
+#align(center, text(13pt, weight: "semibold")[#underline([Title])])
+#set par(first-line-indent: 2em, justify: true)
+#set text(11pt, weight: "regular")
 
-#lorem(400)
+// Main body of the statement
