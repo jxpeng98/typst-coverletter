@@ -2,6 +2,8 @@
 
 This is a cover letter template for Typst with Sans font. It is a modern and professional cover letter template. It is easy to use and customize. This cover letter template is suitable for any job application or general purpose.
 
+If you want to find a CV template, you can check out [modernpro-cv](https://github.com/jxpeng98/Typst-CV-Resume/blob/main/README.md).
+
 ## How to use
 
 ### Use from the Typst Universe
