@@ -32,7 +32,7 @@ This package provides one **cover letter** template and one **statement** templa
 
 ```typst
 #import "@preview/fontawesome:0.4.0": *
-#import "@preview/modernpro-coverletter:0.0.3": *
+#import "@preview/modernpro-coverletter:0.0.4": *
 
 #show: coverletter.with(
   font-type: "PT Serif",
@@ -81,7 +81,7 @@ This package provides one **cover letter** template and one **statement** templa
 
 ```typst
 #import "@preview/fontawesome:0.4.0": *
-#import "@preview/modernpro-coverletter:0.0.3": *
+#import "@preview/modernpro-coverletter:0.0.4": *
 
 #show: statement.with(
   font-type: "PT Serif",

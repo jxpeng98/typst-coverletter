@@ -4,8 +4,8 @@
 // Copyright (c) 2024
 // Author:  Jiaxin Peng
 // License: MIT
-// Version: 0.0.3
-// Date:    2024-08-14
+// Version: 0.0.4
+// Date:    2024-08-29
 // Email:   jiaxin.peng@outlook.com
 ///////////////////////////////
 
@@ -78,15 +78,9 @@
   }
 
   // show contact details
-  let display(contacts) = {
-    set text(
-      10pt,
-      fill: headings-colour,
-      weight: "regular",
-      top-edge: "baseline",
-      bottom-edge: "baseline",
-      baseline: 2pt,
-    )
+  let contact-display(contacts) = {
+    v(-5pt)
+    set text(10pt, fill: headings-colour, weight: "regular")
     contacts
       .map(contact => {
           if ("link" in contact) {
@@ -125,7 +119,7 @@
         )[#align(center, [#address])]
       }
       v(2pt)
-      align(center)[#display(contacts)]
+      align(center)[#contact-display(contacts)]
       line(length: 100%, stroke: 0.2pt + primary-colour)
     },
     header-ascent: 1em,
@@ -185,15 +179,9 @@
   }
 
   // show contact details
-  let display(contacts) = {
-    set text(
-      10pt,
-      fill: headings-colour,
-      weight: "regular",
-      top-edge: "baseline",
-      bottom-edge: "baseline",
-      baseline: 2pt,
-    )
+  let contact-display(contacts) = {
+    v(-5pt)
+    set text(10pt, fill: headings-colour, weight: "regular")
     contacts
       .map(contact => {
           if ("link" in contact) {
@@ -232,7 +220,7 @@
         )[#align(center, [#address])]
       }
       v(2pt)
-      align(center)[#display(contacts)]
+      align(center)[#contact-display(contacts)]
       line(length: 100%, stroke: 0.2pt + primary-colour)
     },
     header-ascent: 1em,
