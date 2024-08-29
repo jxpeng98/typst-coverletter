@@ -1,5 +1,5 @@
 #import "@preview/fontawesome:0.4.0": *
-#import "@preview/modernpro-coverletter:0.0.3": *
+#import "@preview/modernpro-coverletter:0.0.4": *
 
 #show: statement.with(
   font-type: "PT Serif",
