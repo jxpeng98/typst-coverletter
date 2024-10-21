@@ -4,8 +4,8 @@
 // Copyright (c) 2024
 // Author:  Jiaxin Peng
 // License: MIT
-// Version: 0.0.4
-// Date:    2024-08-29
+// Version: 0.0.5
+// Date:    2024-10-21
 // Email:   jiaxin.peng@outlook.com
 ///////////////////////////////
 
@@ -68,8 +68,8 @@
       },
     )
     if postcode != [] {
-    align(left, text(12pt, font: font-type, fill: primary-colour, weight: "bold")[#upper(cl-title)])
-    v(0.1em)
+      align(left, text(12pt, font: font-type, fill: primary-colour, weight: "bold")[#upper(cl-title)])
+      v(0.1em)
     }
     if start-title != [] {
       set text(11pt, font: font-type, fill: primary-colour, weight: "regular")
@@ -88,14 +88,16 @@
                 contact.text
               }]
           } else [
-            #{contact.text}
+            #{
+              contact.text
+            }
           ]
         })
       .join(" | ")
   }
 
   set page(
-    margin: (left: 1.25cm, right: 1.25cm, top: 2.5cm, bottom: 1.5cm),
+    margin: (left: 1.25cm, right: 1.25cm, top: 3cm, bottom: 1.5cm),
     header: {
       // Head Name Section
       text(
@@ -108,7 +110,7 @@
       )[#align(center, [#name])]
       // address
       if address != none {
-        v(2pt)
+        v(5pt)
         text(
           11pt,
           fill: primary-colour,
@@ -189,14 +191,16 @@
                 contact.text
               }]
           } else [
-            #{contact.text}
+            #{
+              contact.text
+            }
           ]
         })
       .join(" | ")
   }
 
   set page(
-    margin: (left: 1.25cm, right: 1.25cm, top: 2.5cm, bottom: 1.5cm),
+    margin: (left: 1.25cm, right: 1.25cm, top: 3cm, bottom: 1.5cm),
     header: {
       // Head Name Section
       text(
@@ -208,8 +212,8 @@
         baseline: 12pt,
       )[#align(center, [#name])]
       // address
-      if address != none {
-        v(2pt)
+      if address != none or address != [] {
+        v(5pt)
         text(
           11pt,
           fill: primary-colour,
@@ -219,7 +223,6 @@
           baseline: 2pt,
         )[#align(center, [#address])]
       }
-      v(2pt)
       align(center)[#contact-display(contacts)]
       line(length: 100%, stroke: 0.2pt + primary-colour)
     },
