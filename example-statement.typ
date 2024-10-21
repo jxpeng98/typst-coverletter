@@ -1,10 +1,10 @@
-#import "@preview/fontawesome:0.4.0": *
+#import "@preview/fontawesome:0.5.0": *
 #import "modernpro-coverletter.typ": *
 
 #show: statement.with(
   font-type: "PT Serif",
   name: [Example EE],
-  address: [],
+  address: [UK],
   contacts: (
     (text: [#fa-icon("location-dot") UK]),
     (text: [#fa-icon("mobile") 123-456-789], link: "tel:123-456-789"),
@@ -18,4 +18,4 @@
 #set par(first-line-indent: 2em, justify: true)
 #set text(11pt, weight: "regular")
 
-#lorem(400)
+#lorem(300)
