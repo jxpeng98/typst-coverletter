@@ -67,7 +67,7 @@
         }
       },
     )
-    if postcode != [] {
+    if cl-title != [] {
       align(left, text(12pt, font: font-type, fill: primary-colour, weight: "bold")[#upper(cl-title)])
       v(0.1em)
     }
