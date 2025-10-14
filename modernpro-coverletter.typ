@@ -1,11 +1,11 @@
 ///////////////////////////////
 // modernpro-coverletter.typ
 // A cover letter template with modern Sans font for job applications and other formal letters.
-// Copyright (c) 2024
+// Copyright (c) 2025
 // Author:  Jiaxin Peng
 // License: MIT
-// Version: 0.0.6
-// Date:    2024-12-29
+// Version: 0.0.7
+// Date:    2025-10-14
 // Email:   jiaxin.peng@outlook.com
 ///////////////////////////////
 

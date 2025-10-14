@@ -36,6 +36,7 @@ This package provides one **cover letter** template and one **statement** templa
 
 #show: coverletter.with(
   font-type: "PT Serif",
+  margin: (left: 2cm, right: 2cm, top: 3cm, bottom: 2cm),
   name: [example],
   address: [],
   contacts: (
@@ -63,6 +64,7 @@ This package provides one **cover letter** template and one **statement** templa
 | Parameter | Description |
 | --- | --- |
 | `font-type` | The font type of the cover letter, e.g. "PT Serif" |
+| `margin` | Optional page margins as a single value or directional tuple |
 | `name` | The name of the sender |
 | `address` | The address of the sender |
 | `contacts` | The contact information of the sender(text:[], link: []) |
@@ -85,6 +87,7 @@ This package provides one **cover letter** template and one **statement** templa
 
 #show: statement.with(
   font-type: "PT Serif",
+  margin: (left: 2cm, right: 2cm, top: 3cm, bottom: 2cm),
   name: [],
   address: [],
   contacts: (
@@ -107,6 +110,7 @@ This package provides one **cover letter** template and one **statement** templa
 | Parameter | Description |
 | --- | --- |
 | `font-type` | The font type of the cover letter, e.g. "PT Serif" |
+| `margin` | Optional page margins as a single value or directional tuple |
 | `name` | The name of the sender |
 | `address` | The address of the sender |
 | `contacts` | The contact information of the sender(text:[], link: []) |
@@ -125,8 +129,8 @@ You just need to import the FontAwesome package at the beginning of the document
 
 ### Cover Letter
 
-![Cover Letter Preview](https://minioapi.pjx.ac.cn/img1/2024/08/79decf8975b899d31b9dc76c5466a01a.png)
+![Cover Letter Preview](https://img.pengjiaxin.com/2024/08/79decf8975b899d31b9dc76c5466a01a.png)
 
 ### Statement
 
-![Statement Preview](https://minioapi.pjx.ac.cn/img1/2024/08/0483a06862932e1e9a9f1589676ce862.png)
+![Statement Preview](https://img.pengjiaxin.com/2024/08/0483a06862932e1e9a9f1589676ce862.png)

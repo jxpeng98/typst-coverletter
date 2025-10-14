@@ -1,3 +1,2 @@
-## Fix
-
-- Fix a bug that removed the coverletter tittle `cl-title` when had a `postcode = []` in the coverletter template.
+## Added
+- Allow both `coverletter` and `statement` templates to accept a `margin` argument for configurable page layouts.
