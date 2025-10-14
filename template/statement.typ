@@ -3,6 +3,7 @@
 
 #show: statement.with(
   font-type: "PT Serif",
+  margin: (left: 2cm, right: 2cm, top: 3cm, bottom: 2cm),
   name: [],
   address: [],
   contacts: (
