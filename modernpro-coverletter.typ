@@ -10,10 +10,9 @@
 ///////////////////////////////
 
 
-
-
 #let coverletter(
   font-type: "",
+  margin: none,
   name: "",
   address: none,
   contacts: (),
@@ -33,6 +32,12 @@
   }
   let subsectionsep = {
     [#v(2pt)]
+  }
+
+  let resolved-margin = if margin != none {
+    margin
+  } else {
+    (left: 1.25cm, right: 1.25cm, top: 3cm, bottom: 1.5cm)
   }
 
   // set the recipient
@@ -97,7 +102,7 @@
   }
 
   set page(
-    margin: (left: 1.25cm, right: 1.25cm, top: 3cm, bottom: 1.5cm),
+    margin: resolved-margin,
     header: {
       // Head Name Section
       text(
@@ -160,6 +165,7 @@
 
 #let statement(
   font-type: "",
+  margin: none,
   name: "",
   address: none,
   contacts: (),
@@ -178,6 +184,12 @@
   }
   let subsectionsep = {
     [#v(2pt)]
+  }
+
+  let resolved-margin = if margin != none {
+    margin
+  } else {
+    (left: 1.25cm, right: 1.25cm, top: 3cm, bottom: 1.5cm)
   }
 
   // show contact details
@@ -200,7 +212,7 @@
   }
 
   set page(
-    margin: (left: 1.25cm, right: 1.25cm, top: 3cm, bottom: 1.5cm),
+    margin: resolved-margin,
     header: {
       // Head Name Section
       text(
