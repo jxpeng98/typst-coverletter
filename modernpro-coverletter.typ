@@ -11,21 +11,53 @@
 
 
 #let coverletter(
-  font-type: "",
+  font-type: none,
   margin: none,
-  name: "",
+  name: none,
   address: none,
   contacts: (),
-  recipient: (start-title: "", cl-title: "", date: "", department: "", institution: "", address: "", postcode: ""),
-  supplement: none,
+  recipient: (start-title: none, cl-title: none, date: none, department: none, institution: none, address: none, postcode: none),
+  supplements: none,
+  salutation: "Sincerely,",
+  // Colour options
+  primary-colour: rgb("#000000"),
+  headings-colour: rgb("#2b2b2b"),
+  subheadings-colour: rgb("#333333"),
+  date-colour: rgb("#666666"),
+  link-colour: none,  // none = inherit from text colour
+  // Font size options
+  name-size: 20pt,
+  body-size: 11pt,
+  address-size: 11pt,
+  contact-size: 10pt,
+  recipient-size: 10pt,
+  cl-title-size: 12pt,
+  supplement-size: 10pt,
+  // Layout options
+  line-stroke: 0.2pt,
+  header-ascent: 1em,
+  first-line-indent: 2em,
+  line-spacing: 0.65em,
+  paragraph-spacing: 0.8em,
+  contact-separator: " | ",
+  // Header alignment
+  name-align: center,
+  address-align: center,
+  contact-align: center,
+  // Font weight options
+  name-weight: "bold",
+  body-weight: "regular",
+  salutation-weight: "regular",
+  signature-weight: "bold",
+  // Signature block spacing (defaults for electronic version)
+  closing-spacing: 0.8em,
+  signature-spacing: 0.3em,
+  supplement-spacing: 0.8em,
+  // Date format
+  date-format: "[day] [month repr:long] [year]",
   mainbody,
 ) = {
   set text(font: font-type, weight: "regular")
-
-  let date-colour = rgb("#666666")
-  let primary-colour = rgb("#000000")
-  let headings-colour = rgb("#2b2b2b")
-  let subheadings-colour = rgb("#333333")
 
   let sectionsep = {
     [#v(5pt)]
@@ -45,39 +77,39 @@
     align(
       left,
       {
-        if department != [] {
-          text(10pt, font: font-type, fill: subheadings-colour, weight: "bold")[#department]
+        if department != none and department != [] and department != "" {
+          text(recipient-size, font: font-type, fill: subheadings-colour, weight: "bold")[#department]
         }
         h(1fr)
-        if date != [] {
-          text(10pt, font: font-type, fill: primary-colour, weight: "light")[#date\ ]
+        if date != none and date != [] and date != "" {
+          text(recipient-size, font: font-type, fill: date-colour, weight: "light")[#date\ ]
         } else {
           text(
-            10pt,
+            recipient-size,
             font: font-type,
-            fill: primary-colour,
+            fill: date-colour,
             weight: "light",
-          )[ #datetime.today(offset: auto).display("[day] [month repr:long] [year]")\ ]
+          )[ #datetime.today(offset: auto).display(date-format)\ ]
         }
 
-        if institution != [] {
-          text(10pt, font: font-type, fill: subheadings-colour, weight: "bold")[#institution\ ]
+        if institution != none and institution != [] and institution != "" {
+          text(recipient-size, font: font-type, fill: subheadings-colour, weight: "bold")[#institution\ ]
         }
 
-        if address != [] {
-          text(10pt, font: font-type, fill: headings-colour, weight: "light")[#address\ ]
+        if address != none and address != [] and address != "" {
+          text(recipient-size, font: font-type, fill: headings-colour, weight: "light")[#address\ ]
         }
-        if postcode != [] {
-          text(10pt, font: font-type, fill: headings-colour, weight: "light")[#postcode ]
+        if postcode != none and postcode != [] and postcode != "" {
+          text(recipient-size, font: font-type, fill: headings-colour, weight: "light")[#postcode ]
         }
       },
     )
-    if cl-title != [] {
-      align(left, text(12pt, font: font-type, fill: primary-colour, weight: "bold")[#upper(cl-title)])
+    if cl-title != none and cl-title != [] and cl-title != "" {
+      align(left, text(cl-title-size, font: font-type, fill: primary-colour, weight: "bold")[#upper(cl-title)])
       v(0.1em)
     }
-    if start-title != [] {
-      set text(11pt, font: font-type, fill: primary-colour, weight: "regular")
+    if start-title != none and start-title != [] and start-title != "" {
+      set text(body-size, font: font-type, fill: primary-colour, weight: body-weight)
       [#start-title]
     }
   }
@@ -85,7 +117,9 @@
   // show contact details
   let contact-display(contacts) = {
     v(-5pt)
-    set text(10pt, fill: headings-colour, weight: "regular")
+    set text(contact-size, fill: headings-colour, weight: "regular")
+    let resolved-link-colour = if link-colour != none { link-colour } else { headings-colour }
+    show link: set text(fill: resolved-link-colour)
     contacts
       .map(contact => {
           if ("link" in contact) {
@@ -98,38 +132,42 @@
             }
           ]
         })
-      .join(" | ")
+      .join(contact-separator)
   }
 
   set page(
     margin: resolved-margin,
     header: {
       // Head Name Section
-      text(
-        20pt,
-        fill: primary-colour,
-        weight: "bold",
-        top-edge: "baseline",
-        bottom-edge: "baseline",
-        baseline: 12pt,
-      )[#align(center, [#name])]
+      if name != none and name != [] and name != "" {
+        text(
+          name-size,
+          fill: primary-colour,
+          weight: name-weight,
+          top-edge: "baseline",
+          bottom-edge: "baseline",
+          baseline: 12pt,
+        )[#align(name-align, [#name])]
+      }
       // address
-      if address != none {
+      if address != none and address != [] and address != "" {
         v(5pt)
         text(
-          11pt,
+          address-size,
           fill: primary-colour,
           weight: "regular",
           top-edge: "baseline",
           bottom-edge: "baseline",
           baseline: 2pt,
-        )[#align(center, [#address])]
+        )[#align(address-align, [#address])]
       }
       v(2pt)
-      align(center)[#contact-display(contacts)]
-      line(length: 100%, stroke: 0.2pt + primary-colour)
+      if contacts != none and contacts.len() > 0 {
+        align(contact-align)[#contact-display(contacts)]
+      }
+      line(length: 100%, stroke: line-stroke + primary-colour)
     },
-    header-ascent: 1em,
+    header-ascent: header-ascent,
   )
 
   // Add recipient details
@@ -143,41 +181,88 @@
     recipient.postcode,
   )
 
-  set par(justify: true, first-line-indent: 2em)
+  set par(justify: true, first-line-indent: first-line-indent, leading: line-spacing, spacing: paragraph-spacing)
 
-  set text(11pt, font: font-type, fill: primary-colour, weight: "regular")
+  set text(body-size, font: font-type, fill: primary-colour, weight: body-weight)
+
+  // Apply link colour if specified
+  if link-colour != none {
+    show link: set text(fill: link-colour)
+  }
 
   mainbody
 
-  set text(11pt, font: font-type, fill: primary-colour, weight: "regular")
+  set text(body-size, font: font-type, fill: primary-colour, weight: body-weight)
 
-  v(1pt)
-  [Sincerely,]
-  v(1pt)
-  [*#name*]
-  if supplement != none {
-    v(1pt)
-    [#supplement]
+  // Signature block with improved layout
+  v(closing-spacing)
+  
+  // Salutation
+  if salutation != none {
+    set par(first-line-indent: 0em)
+    text(body-size, font: font-type, fill: primary-colour, weight: salutation-weight)[#salutation]
+    v(signature-spacing) // Space for signature
+  }
+  
+  // Name (signature line)
+  if name != none and name != [] and name != "" {
+    set par(first-line-indent: 0em)
+    text(body-size, font: font-type, fill: primary-colour, weight: signature-weight)[#name]
+  }
+  
+  // Supplements (enclosures, attachments, etc.)
+  if supplements != none {
+    v(supplement-spacing)
+    let additions = if type(supplements) == array {
+      supplements
+    } else {
+      (supplements,)
+    }
+    set par(first-line-indent: 0em)
+    for addition in additions {
+      text(supplement-size, font: font-type, fill: headings-colour, weight: "regular")[#addition]
+      linebreak()
+    }
   }
 }
 
 
 
 #let statement(
-  font-type: "",
+  font-type: none,
   margin: none,
-  name: "",
+  name: none,
   address: none,
   contacts: (),
   supplement: none,
+  // Colour options
+  primary-colour: rgb("#000000"),
+  headings-colour: rgb("#2b2b2b"),
+  subheadings-colour: rgb("#333333"),
+  date-colour: rgb("#666666"),
+  link-colour: none,  // none = inherit from text colour
+  // Font size options
+  name-size: 20pt,
+  body-size: 11pt,
+  address-size: 11pt,
+  contact-size: 10pt,
+  // Layout options
+  line-stroke: 0.2pt,
+  header-ascent: 1em,
+  first-line-indent: 2em,
+  line-spacing: 0.65em,
+  paragraph-spacing: 0.8em,
+  contact-separator: " | ",
+  // Header alignment
+  name-align: center,
+  address-align: center,
+  contact-align: center,
+  // Font weight options
+  name-weight: "bold",
+  body-weight: "regular",
   mainbody,
 ) = {
   set text(font: font-type, weight: "regular")
-
-  let date-colour = rgb("#666666")
-  let primary-colour = rgb("#000000")
-  let headings-colour = rgb("#2b2b2b")
-  let subheadings-colour = rgb("#333333")
 
   let sectionsep = {
     [#v(5pt)]
@@ -195,7 +280,9 @@
   // show contact details
   let contact-display(contacts) = {
     v(-5pt)
-    set text(10pt, fill: headings-colour, weight: "regular")
+    set text(contact-size, fill: headings-colour, weight: "regular")
+    let resolved-link-colour = if link-colour != none { link-colour } else { headings-colour }
+    show link: set text(fill: resolved-link-colour)
     contacts
       .map(contact => {
           if ("link" in contact) {
@@ -208,49 +295,58 @@
             }
           ]
         })
-      .join(" | ")
+      .join(contact-separator)
   }
 
   set page(
     margin: resolved-margin,
     header: {
       // Head Name Section
-      text(
-        20pt,
-        fill: primary-colour,
-        weight: "bold",
-        top-edge: "baseline",
-        bottom-edge: "baseline",
-        baseline: 12pt,
-      )[#align(center, [#name])]
+      if name != none and name != [] and name != "" {
+        text(
+          name-size,
+          fill: primary-colour,
+          weight: name-weight,
+          top-edge: "baseline",
+          bottom-edge: "baseline",
+          baseline: 12pt,
+        )[#align(name-align, [#name])]
+      }
       // address
-      if address != none or address != [] {
+      if address != none and address != [] and address != "" {
         v(5pt)
         text(
-          11pt,
+          address-size,
           fill: primary-colour,
           weight: "regular",
           top-edge: "baseline",
           bottom-edge: "baseline",
           baseline: 2pt,
-        )[#align(center, [#address])]
+        )[#align(address-align, [#address])]
       }
-      align(center)[#contact-display(contacts)]
-      line(length: 100%, stroke: 0.2pt + primary-colour)
+      if contacts != none and contacts.len() > 0 {
+        align(contact-align)[#contact-display(contacts)]
+      }
+      line(length: 100%, stroke: line-stroke + primary-colour)
     },
-    header-ascent: 1em,
+    header-ascent: header-ascent,
   )
 
-  set par(justify: true, first-line-indent: 2em)
+  set par(justify: true, first-line-indent: first-line-indent, leading: line-spacing, spacing: paragraph-spacing)
 
-  set text(11pt, font: font-type, fill: primary-colour, weight: "regular")
+  set text(body-size, font: font-type, fill: primary-colour, weight: body-weight)
+
+  // Apply link colour if specified
+  if link-colour != none {
+    show link: set text(fill: link-colour)
+  }
 
   mainbody
 
-  set text(11pt, font: font-type, fill: primary-colour, weight: "regular")
+  set text(body-size, font: font-type, fill: primary-colour, weight: body-weight)
 
   if supplement != none {
     v(1pt)
-    [#supplement]
+    supplement
   }
 }

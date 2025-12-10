@@ -13,6 +13,11 @@
     (text: [#fa-icon("github") github], link: "https://github.com/"),
     (text: [#fa-icon("envelope") example\@example.com], link: "mailto:example@example.com"),
   ),
+  // Customisation options (uncomment to use)
+  // primary-colour: rgb("#000000"),
+  // headings-colour: rgb("#2b2b2b"),
+  // name-size: 20pt,
+  // body-size: 11pt,
 )
 
 #v(1em)
