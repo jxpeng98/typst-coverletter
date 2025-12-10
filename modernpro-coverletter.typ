@@ -4,8 +4,8 @@
 // Copyright (c) 2025
 // Author:  Jiaxin Peng
 // License: MIT
-// Version: 0.0.7
-// Date:    2025-10-14
+// Version: 0.0.8
+// Date:    2025-12-10
 // Email:   jiaxin.peng@outlook.com
 ///////////////////////////////
 
