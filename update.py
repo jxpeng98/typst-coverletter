@@ -140,3 +140,51 @@ update_main(main_typ_file_coverletter_path, new_version)
 update_main(main_typ_file_statement_path, new_version)
 
 
+####################
+# Update README.md
+####################
+
+def update_readme(readme_path, new_version):
+    """Updates import statements in README.md to the new cover letter version."""
+    path = Path(readme_path)
+
+    try:
+        original_content = path.read_text(encoding='utf-8')
+    except FileNotFoundError:
+        print(f"Error: File not found at {path}")
+        return
+    except Exception as exc:
+        print(f"An error occurred while reading the file: {exc}")
+        return
+
+    # Pattern to match import statements with version number in README
+    import_pattern = re.compile(
+        r'#import\s+"@preview/modernpro-coverletter:([^"]+)"\s*:\s*\*',
+        re.MULTILINE
+    )
+
+    # Replace all occurrences with the new version
+    updated_content, replacements = import_pattern.subn(
+        f'#import "@preview/modernpro-coverletter:{new_version}": *',
+        original_content
+    )
+
+    if replacements == 0:
+        print(f"Warning: No import statements found in {path}")
+        return
+
+    # Write the updated content back to the file
+    try:
+        path.write_text(updated_content, encoding='utf-8')
+    except Exception as exc:
+        print(f"An error occurred while writing to the file: {exc}")
+        return
+
+    print(f"README.md has been updated with the new version ({replacements} occurrences replaced).")
+
+
+# Update README.md
+readme_path = 'README.md'
+update_readme(readme_path, new_version)
+
+
