@@ -1,39 +1,55 @@
-#import "@preview/fontawesome:0.6.0": *
 #import "modernpro-coverletter.typ": *
 
+// All people, institutions, roles, and claims in this example are fictional.
 #show: coverletter.with(
-  font-type: "PT Serif",
-  name: [Example EE],
-  address: [UK],
-  salutation: [Best regards,],
-  supplements: ([Enclosure: Resume], [Portfolio: example.com]),
-  contacts: (
-    (text: [#fa-icon("location-dot") UK]),
-    (text: [#fa-icon("mobile") 123-456-789], link: "tel:123-456-789"),
-    (text: [#fa-icon("link") example.com], link: "https://www.example.com"),
-    (text: [#fa-icon("github") github], link: "https://github.com/"),
-    (text: [#fa-icon("envelope") example\@example.com], link: "mailto:example@example.com"),
+  profile: (
+    name: [Dr. Maya Chen],
+    role: [Lecturer in Computational Social Science],
+    address: [Edinburgh, United Kingdom],
+    contacts: (
+      (text: [maya\@northbridge.example], link: "mailto:maya@northbridge.example"),
+      (text: [maya.example.org], link: "https://maya.example.org"),
+      (text: [ORCID~0000-0000-0000-0000], link: "https://orcid.org/0000-0000-0000-0000"),
+    ),
   ),
   recipient: (
-    start-title: [Dear Committee Members,],
-    cl-title: [Job Application for Hiring Manager],
-    date: [],
-    department: [Department of Example],
-    institution: [University of Example],
-    address: [London, UK],
-    postcode: [W1 S2],
+    name: [Professor Eleanor Hughes],
+    role: [Chair, Faculty Search Committee],
+    department: [School of Public Policy],
+    organization: [Eastborough University],
+    address: [London, United Kingdom],
+    date: [9 July 2026],
+    subject: [Application for Lecturer in Digital Governance],
+    greeting: [Dear Professor Hughes and Members of the Committee,],
   ),
-  // Customisation options (uncomment to use)
-  // primary-colour: rgb("#000000"),
-  // headings-colour: rgb("#2b2b2b"),
-  // name-size: 20pt,
-  // body-size: 11pt,
-  // closing-spacing: 1em,
-  // signature-spacing: 0.5em,  // increase to 2em+ for printed version
-  // supplement-spacing: 1em,
+  closing: (
+    supplements: ([Enclosure: Curriculum vitae],),
+  ),
 )
 
-#set par(justify: true, first-line-indent: 2em)
-#set text(weight: "regular", size: 12pt)
+I am applying for the Lecturer in Digital Governance position at Eastborough
+University. I am currently a Lecturer in Computational Social Science at
+Northbridge University, where I lead the Civic AI Lab. My research and teaching
+examine how public institutions evaluate, explain, and govern data-intensive
+systems, a focus that closely matches the School's work on accountable public
+innovation.
 
-#lorem(400)
+My research combines audit studies, causal inference, and participatory design.
+In a recent project, I worked with local-service teams to test how different
+forms of model documentation changed review decisions. That work developed into
+a broader programme on public audit, supported by a fictional New Investigator
+Award. At Eastborough, I would extend this programme by studying when oversight
+tools change institutional practice rather than simply improve disclosure.
+
+I teach computational research methods at undergraduate and postgraduate
+levels, supervise MSc dissertations, and design assignments around transparent
+and reproducible analysis. My teaching begins with substantive public-policy
+questions and introduces technical methods only when they help students answer
+those questions responsibly. I would be pleased to contribute to research
+methods, digital government, and the School's project-based teaching.
+
+Eastborough's combination of public-policy scholarship, applied methods, and
+partnerships with civic organisations would provide an excellent setting for
+this work. Thank you for considering my application. I would welcome the
+opportunity to discuss how my research, teaching, and service could contribute
+to the School.

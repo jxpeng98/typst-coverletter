@@ -1,28 +1,22 @@
-#import "@preview/fontawesome:0.6.0": *
-#import "@preview/modernpro-coverletter:0.0.8": *
+#import "@preview/modernpro-coverletter:1.0.0": *
+#import "profile.typ": profile
 
+// Research, teaching, or diversity statement. Shares the header, type scale,
+// and colour of the cover letter and of modernpro-cv. A compact continuation
+// header with page numbering appears automatically from page 2.
 #show: statement.with(
-  font-type: "PT Serif",
-  margin: (left: 2cm, right: 2cm, top: 3cm, bottom: 2cm),
-  name: [],
-  address: [],
-  contacts: (
-    (text: [#fa-icon("location-dot") UK]),
-    (text: [#fa-icon("mobile") 123-456-789], link: "tel:123-456-789"),
-    (text: [#fa-icon("link") example.com], link: "https://www.example.com"),
-    (text: [#fa-icon("github") github], link: "https://github.com/"),
-    (text: [#fa-icon("envelope") example\@example.com], link: "mailto:example@example.com"),
-  ),
-  // Customisation options (uncomment to use)
-  // primary-colour: rgb("#000000"),
-  // headings-colour: rgb("#2b2b2b"),
-  // name-size: 20pt,
-  // body-size: 11pt,
+  profile: profile,
+  title: [Research Statement],
 )
 
-#v(1em)
-#align(center, text(13pt, weight: "semibold")[#underline([Title])])
-#set par(first-line-indent: 2em, justify: true)
-#set text(11pt, weight: "regular")
+= Research agenda
 
-// Main body of the statement
+Introduce the question that connects your work and explain why it matters.
+
+= Current programme
+
+Describe your strongest projects, methods, and contributions.
+
+= Future work
+
+Set out the next phase of the programme and the environment it needs to succeed.

@@ -1,208 +1,279 @@
-# Typst-ModernPro-Coverletter
+# modernpro-coverletter
 
-This is a cover letter template for Typst with Sans font. It is a modern and professional cover letter template. It is easy to use and customize. This cover letter template is suitable for any job application or general purpose.
+An academic-first Typst package for cover letters and research, teaching, or
+personal statements. It shares its design system and its `profile` dictionary
+with [modernpro-cv](https://typst.app/universe/package/modernpro-cv), so a CV, a
+letter, and a statement read as one application.
 
-If you want to find a CV template, you can check out [modernpro-cv](https://example.invalid/academic-templates/modernpro-cv/blob/main/README.md).
+The default design is intentionally complete. Most users only need to provide
+their profile, the recipient, and the letter text.
 
-## How to use
+## Preview
 
-### Use from the Typst Universe
+### Academic cover letter
 
-It is simple and easy to use this template from the Typst Universe. If you prefer to use the local editor and `typst-cli`, you can use the following command to create a new cover letter project with this template.
+[![Academic cover letter](screenshots/coverletter.png)](screenshots/coverletter.png)
+
+### Research statement
+
+[![Research statement](screenshots/statement.png)](screenshots/statement.png)
+
+## Quick start
+
+Create a project with the Typst CLI:
 
 ```bash
 typst init @preview/modernpro-coverletter
 ```
 
-It will create a new cover letter project with this template in the current directory.
+The generated project contains `profile.typ`, `coverletter.typ`, and
+`statement.typ`. Compile either document with `typst compile`.
 
-### Use from GitHub
+## Minimal academic cover letter
 
-You can also use this template from GitHub. You can clone this repository and use it as a normal project.
-
-```bash
-git clone https://example.invalid/academic-templates/modernpro-coverletter.git
-```
-
-## Features
-
-This package provides one **cover letter** template and one **statement** template.
-
-### Cover Letter
+Keep your identity in `profile.typ` — the same file modernpro-cv takes — and
+import it:
 
 ```typst
-#import "@preview/fontawesome:0.6.0": *
-#import "@preview/modernpro-coverletter:0.0.8": *
+// profile.typ
+#let profile = (
+  name: [Dr. Maya Chen],
+  role: [Lecturer in Computational Social Science],
+  address: [Edinburgh, United Kingdom],
+  contacts: (
+    (text: [maya\@northbridge.example], link: "mailto:maya@northbridge.example"),
+    (text: [maya.example.org], link: "https://maya.example.org"),
+    (text: [ORCID~0000-0000-0000-0000], link: "https://orcid.org/0000-0000-0000-0000"),
+  ),
+)
+```
+
+```typst
+#import "@preview/modernpro-coverletter:1.0.0": *
+#import "profile.typ": profile
 
 #show: coverletter.with(
-  font-type: "PT Serif",
-  margin: (left: 2cm, right: 2cm, top: 3cm, bottom: 2cm),
-  name: [example],
-  address: [],
-  salutation: [Best regards,],
-  supplements: ([Enclosure: Resume], [Portfolio: example.com]),
-  contacts: (
-    (text: [#fa-icon("location-dot") UK]),
-    (text: [123-456-789], link: "tel:123-456-789"),
-    (text: [example.com], link: "https://www.example.com"),
-    (text: [github], link: "https://github.com/"),
-    (text: [example\@example.com], link: "mailto:example@example.com"),
-  ),
+  profile: profile,
   recipient: (
-    start-title: [Dear Hiring Manager,],
-    cl-title: [Job Application for Software Engineer],
-    date: [],
-    department: [Department of Engineering],
-    institution: [Example Company],
-    address: [London, UK],
-    postcode: [W1 S2],
+    name: [Professor Eleanor Hughes],
+    role: [Chair, Faculty Search Committee],
+    department: [School of Public Policy],
+    organization: [Eastborough University],
+    address: [London, United Kingdom],
+    date: [9 July 2026],
+    subject: [Application for Lecturer in Digital Governance],
+    greeting: [Dear Professor Hughes and Members of the Committee,],
   ),
-  // Customisation options (uncomment to use)
-  // primary-colour: rgb("#000000"),
-  // closing-spacing: 1em,
-  // signature-spacing: 0.5em,  // increase to 2em+ for printed version
-  // supplement-spacing: 1em,
 )
 
-// Main body of the cover letter
+Write the opening paragraph here.
+
+Write the research, teaching, or professional case in short block paragraphs.
+
+Close by explaining the fit and thanking the committee.
 ```
 
-| Parameter | Description | Default |
-| --- | --- | --- |
-| `font-type` | The font type of the cover letter, e.g. "PT Serif" | `none` |
-| `margin` | Optional page margins as a single value or directional tuple | `(left: 1.25cm, right: 1.25cm, top: 3cm, bottom: 1.5cm)` |
-| `name` | The name of the sender | `none` |
-| `address` | The address of the sender | `none` |
-| `contacts` | The contact information of the sender(text:[], link: []) | `()` |
-| `salutation` | Closing greeting text; set to `none` to hide | `"Sincerely,"` |
-| `supplements` | One or more lines after the name (e.g., enclosure notes); accepts a string/content value or an array | `none` |
-| **Colour Options** | | |
-| `primary-colour` | Primary text colour | `rgb("#000000")` |
-| `headings-colour` | Headings text colour | `rgb("#2b2b2b")` |
-| `subheadings-colour` | Subheadings text colour | `rgb("#333333")` |
-| `date-colour` | Date text colour | `rgb("#666666")` |
-| `link-colour` | Link text colour; `none` inherits from text | `none` |
-| **Font Size Options** | | |
-| `name-size` | Font size for the name in header | `20pt` |
-| `body-size` | Font size for the main body text | `11pt` |
-| `address-size` | Font size for the address | `11pt` |
-| `contact-size` | Font size for contact information | `10pt` |
-| `recipient-size` | Font size for recipient information | `10pt` |
-| `cl-title-size` | Font size for the cover letter title | `12pt` |
-| `supplement-size` | Font size for supplement/enclosure text | `10pt` |
-| **Layout Options** | | |
-| `line-stroke` | Stroke width for the header separator line | `0.2pt` |
-| `header-ascent` | Header ascent distance | `1em` |
-| `first-line-indent` | First line indent for paragraphs | `2em` |
-| `line-spacing` | Line spacing within paragraphs | `0.65em` |
-| `paragraph-spacing` | Spacing between paragraphs | `0.8em` |
-| `contact-separator` | Separator between contact items | `" \| "` |
-| **Header Alignment** | | |
-| `name-align` | Alignment for name in header | `center` |
-| `address-align` | Alignment for address in header | `center` |
-| `contact-align` | Alignment for contacts in header | `center` |
-| **Font Weight Options** | | |
-| `name-weight` | Font weight for name in header | `"bold"` |
-| `body-weight` | Font weight for body text | `"regular"` |
-| `salutation-weight` | Font weight for salutation | `"regular"` |
-| `signature-weight` | Font weight for signature name | `"bold"` |
-| **Signature Block Spacing** | | |
-| `closing-spacing` | Vertical space before the salutation | `0.8em` |
-| `signature-spacing` | Vertical space between salutation and name (increase to `2em`+ for printed/signed version) | `0.3em` |
-| `supplement-spacing` | Vertical space between name and supplements | `0.8em` |
-| **Date Format** | | |
-| `date-format` | Format string for auto-generated date | `"[day] [month repr:long] [year]"` |
-
-| Parameter in Recipient | Description |
-| --- | --- |
-| `start-title` | The start title of the letter |
-| `cl-title` | The title of the letter (i.g., Job Application for Hiring Manager) |
-| `date` | The date of the letter(If "" or [], it will generate the current date) |
-| `department` | The department of the recipient, can be "" or [] |
-| `institution` | The institution of the recipient |
-| `address` | The address of the recipient |
-| `postcode` | The postcode of the recipient |
-
-### Statement
+The default closing is `Sincerely,` followed by the profile name. Override it
+only when needed:
 
 ```typst
-#import "@preview/fontawesome:0.6.0": *
-#import "@preview/modernpro-coverletter:0.0.8": *
+closing: (
+  salutation: [Best regards,],
+  supplements: ([Enclosure: Curriculum vitae],),
+)
+```
+
+## The three settings
+
+Everything beyond `profile` and `recipient` is optional:
+
+| Setting | Values | Purpose |
+| --- | --- | --- |
+| `profile` | `name`, optional `role`, `address`, `contacts` | Who you are |
+| `preset` | `"compact"`, `"default"`, `"relaxed"` | The whole vertical rhythm |
+| `accent` | any colour | The one colour in the document |
+
+```typst
+#show: coverletter.with(
+  profile: profile,
+  recipient: (...),
+  preset: "compact",
+  accent: rgb("#1e3a5f"),
+)
+```
+
+A preset coordinates header rows, recipient and subject spacing, title spacing,
+heading-to-body gaps, line spacing, and paragraph spacing at once. Choose a
+preset rather than tuning gaps individually.
+
+## Recipient fields
+
+The `recipient` group uses ordinary letter terminology:
+
+| Field | Purpose |
+| --- | --- |
+| `name` | Recipient or committee chair |
+| `role` | Role or position |
+| `department` | Department, school, or unit |
+| `organization` | University, company, or institution |
+| `address` | City or postal address |
+| `postcode` | Optional separate postcode line |
+| `date` | Letter date; omit it to use today's date |
+| `subject` | Sentence-case application subject |
+| `greeting` | Opening greeting |
+
+All fields except the date are optional. Empty optional fields do not leave
+placeholder gaps.
+
+## Statement template
+
+`statement` uses the same profile, header, and visual identity. First- and
+second-level Typst headings are styled automatically, so a research statement
+stays easy to edit:
+
+```typst
+#import "@preview/modernpro-coverletter:1.0.0": *
+#import "profile.typ": profile
 
 #show: statement.with(
-  font-type: "PT Serif",
-  margin: (left: 2cm, right: 2cm, top: 3cm, bottom: 2cm),
-  name: [Your Name],
-  address: [Your Address],
-  contacts: (
-    (text: [#fa-icon("location-dot") UK]),
-    (text: [#fa-icon("mobile") 123-456-789], link: "tel:123-456-789"),
-    (text: [#fa-icon("link") example.com], link: "https://www.example.com"),
-    (text: [#fa-icon("github") github], link: "https://github.com/"),
-    (text: [#fa-icon("envelope") example\@example.com], link: "mailto:example@example.com"),
-  ),
-  // Customisation options (uncomment to use)
-  // primary-colour: rgb("#000000"),
-  // name-size: 20pt,
-  // body-size: 11pt,
+  profile: profile,
+  title: [Research Statement],
 )
 
-#v(1em)
-#align(center, text(13pt, weight: "semibold")[#underline([Statement Title])])
+= Research agenda
+Introduce the question that connects your work.
 
-// Main body of the statement
+= Current programme
+Describe your strongest projects, methods, and contributions.
+
+= Future work
+Set out the next phase of the programme.
 ```
 
-| Parameter | Description | Default |
-| --- | --- | --- |
-| `font-type` | The font type of the statement, e.g. "PT Serif" | `none` |
-| `margin` | Optional page margins as a single value or directional tuple | `(left: 1.25cm, right: 1.25cm, top: 3cm, bottom: 1.5cm)` |
-| `name` | The name of the sender | `none` |
-| `address` | The address of the sender | `none` |
-| `contacts` | The contact information of the sender(text:[], link: []) | `()` |
-| `supplement` | Additional content at the end of the statement | `none` |
-| **Colour Options** | | |
-| `primary-colour` | Primary text colour | `rgb("#000000")` |
-| `headings-colour` | Headings text colour | `rgb("#2b2b2b")` |
-| `subheadings-colour` | Subheadings text colour | `rgb("#333333")` |
-| `date-colour` | Date text colour | `rgb("#666666")` |
-| `link-colour` | Link text colour; `none` inherits from text | `none` |
-| **Font Size Options** | | |
-| `name-size` | Font size for the name in header | `20pt` |
-| `body-size` | Font size for the main body text | `11pt` |
-| `address-size` | Font size for the address | `11pt` |
-| `contact-size` | Font size for contact information | `10pt` |
-| **Layout Options** | | |
-| `line-stroke` | Stroke width for the header separator line | `0.2pt` |
-| `header-ascent` | Header ascent distance | `1em` |
-| `first-line-indent` | First line indent for paragraphs | `2em` |
-| `line-spacing` | Line spacing within paragraphs | `0.65em` |
-| `paragraph-spacing` | Spacing between paragraphs | `0.8em` |
-| `contact-separator` | Separator between contact items | `" \| "` |
-| **Header Alignment** | | |
-| `name-align` | Alignment for name in header | `center` |
-| `address-align` | Alignment for address in header | `center` |
-| `contact-align` | Alignment for contacts in header | `center` |
-| **Font Weight Options** | | |
-| `name-weight` | Font weight for name in header | `"bold"` |
-| `body-weight` | Font weight for body text | `"regular"` |
+## Shared academic design
 
-### Icons
+The CV, cover letter, and statement use the same tokens.
 
-The new version also integrates the FontAwesome icons. You can use the `#fa-icon("icon")` function to insert the icons in the cover letter or statement template as shown above.
+| | |
+| --- | --- |
+| Family | PT Serif, falling back to Libertinus Serif — one family, two weights |
+| Sizes | 8.8pt captions · 9.8pt recipient and address · 10.8pt body · 15pt statement title · 18pt name |
+| Colours | `#1f2933` ink · `#667085` muted · `#1e3a5f` accent · `#dde3ea` rules |
+| Margins | 2.2cm left and right · fixed 2cm top, matching modernpro-cv |
+| Header | Split grid: name, role, and location left; stacked contacts right; accent rule below |
+| Paragraph style | Left aligned, no first-line indent, block paragraphs |
 
-You just need to import the FontAwesome package at the beginning of the document.
+Because the left and right margins match the CV exactly, the header rule lands
+at the same position in every document of the application.
+
+Block paragraphs are easier to scan than justified text carrying both an indent
+and a blank gap. The default starter also avoids decorative icons, keeping text
+extraction and accessibility clean.
+
+## Advanced configuration
+
+Most documents never need this section. When you do need a specific override,
+optional settings are grouped by purpose:
+
+| Group | Use it for |
+| --- | --- |
+| `theme` | Fonts, semantic colours, sizes, and weights |
+| `layout` | Margins, paragraph rhythm, header layout, and continuation behaviour |
+| `closing` | Sign-off, signature spacing, and enclosures |
+
+The semantic theme keys match modernpro-cv:
 
 ```typst
-#import "@preview/fontawesome:0.6.0": *
+theme: (
+  font: "PT Serif",
+  text: rgb("#1f2933"),
+  heading: rgb("#1f2933"),
+  muted: rgb("#667085"),
+  accent: rgb("#1e3a5f"),
+  rule: rgb("#dde3ea"),
+)
 ```
 
-## Preview
+Common layout keys are:
 
-### Cover Letter
+| Key | Purpose | Default |
+| --- | --- | --- |
+| `preset` | Coordinated document rhythm: `"compact"`, `"default"`, or `"relaxed"` | `"default"` |
+| `margin` | Page margins | Academic margins above |
+| `first-line-indent` | Paragraph indent | `0em` |
+| `line-spacing` | Typst paragraph leading | `0.72em` at the default preset |
+| `paragraph-spacing` | Space between paragraphs | `1.35em` at the default preset |
+| `justify` | Fully justify body text | `false` |
+| `header-style` | `"split"` or `"centered"` | `"split"` |
+| `contact-layout` | `"stacked"` or `"inline"` contacts in a split header | `"stacked"` |
+| `repeat-header` | Add a compact continuation header from page 2 | cover letter: `false`; statement: `true` |
+| `page-numbering` | Add current and total page count to continuation headers | `true` |
+| `header-height` | First-page identity area height | `17mm` |
+| `contact-separator` | Separator between contact items | `" · "` |
+| `date-format` | Format for an automatic date | `[day] [month repr:long] [year]` |
 
-![Cover Letter Preview](https://example.invalid/assets/2024/08/79decf8975b899d31b9dc76c5466a01a.png)
+The full identity header is always part of the first page's document flow. Its
+position does not move when continuation behaviour changes. If `repeat-header`
+is enabled, later pages receive only a compact name, document label, and page
+count; contact details are not repeated or placed outside the accessible first
+page structure. Statements enable this behaviour by default.
 
-### Statement
+## Contacts
 
-![Statement Preview](https://example.invalid/assets/2024/08/0483a06862932e1e9a9f1589676ce862.png)
+A contact may be linked, unlinked, or plain content, and may carry an optional
+`icon` exactly as in modernpro-cv:
+
+```typst
+contacts: (
+  (text: [you\@example.edu], link: "mailto:you@example.edu"),
+  (text: [your-site.example], link: "https://your-site.example"),
+  [ORCID 0000-0000-0000-0000],
+)
+```
+
+Escape `@` as `\@` inside Typst content. Two or three concise academic contacts
+usually fit best. FontAwesome remains usable as an opt-in content choice, but it
+is not required by the package or starter.
+
+## Legacy compatibility
+
+Nothing was removed. The flat parameters `font-type`, `name`, `address`,
+`contacts`, the colour parameters (`primary-colour`, `headings-colour`,
+`subheadings-colour`, `date-colour`, `link-colour`), the type sizes, and the
+spacing parameters all still resolve. `layout: (density: ...)` remains an
+accepted spelling of `preset`.
+
+The recipient aliases `start-title` and `cl-title` still map to `greeting` and
+`subject`. `institution` remains an alias for `organization`, and `position`
+remains an alias for `role`. The legacy `salutation` argument controls the
+closing sign-off.
+
+New documents should use `profile`, `recipient`, and the three settings shown in
+the quick start.
+
+## Upgrading from 0.0.x
+
+Your existing documents keep compiling, and they will change more than a visual
+redesign alone would explain. In 0.0.x the body style was applied inside a
+helper function that produced no content, so Typst scoped the rules to that
+helper and discarded them: letters rendered at Typst's 11pt default rather than
+the configured `body-size`, and `line-spacing`, `paragraph-spacing`, `justify`,
+`first-line-indent`, and `link-colour` had no effect at all. Those settings now
+work. If you had compensated for the old behaviour with manual overrides,
+remove them.
+
+## Local development
+
+Compile the repository examples against the working template:
+
+```bash
+typst compile example-coverletter.typ
+typst compile example-statement.typ
+```
+
+All people, institutions, positions, projects, and claims in the examples are
+fictional.
+
+## License
+
+This template is released under the MIT License. See [LICENSE](LICENSE).

@@ -187,4 +187,3 @@ def update_readme(readme_path, new_version):
 readme_path = 'README.md'
 update_readme(readme_path, new_version)
 
-

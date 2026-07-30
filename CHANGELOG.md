@@ -1,5 +1,51 @@
 # Changelog
 
+## [1.0.0] - 2026-07-26
+
+Visual redesign, plus a body-style bug fix that changed how every letter has
+rendered since 0.0.x. The configuration API stays backward compatible: every
+legacy parameter still resolves.
+
+### Fixed
+
+- **Body text styling never applied.** `apply-letter-body-style` set `text` and
+  `par` rules inside a helper that produced no content, so Typst scoped them to
+  that helper and discarded them. Letters therefore rendered at Typst's 11pt
+  default with default leading and paragraph spacing, while the greeting and the
+  signature — styled inline — rendered at the configured 10.8pt. `body-size`,
+  `line-spacing`, `paragraph-spacing`, `justify`, `first-line-indent`, and
+  `link-colour` were all inert. These rules now live in the template body.
+- **Header lines overlapped.** Typst measures a line box down to the baseline, so
+  the descenders of a 19pt name hung outside it and collided with the role line
+  below. The identity block now extends its bottom edge.
+- The statement title used a `heading`, so the level-1 show rule overrode its own
+  spacing tokens. It is now a plain block.
+
+### Changed
+
+- Rebuilt the visual system to match modernpro-cv 2.0.0: a single serif family in
+  two weights, a restrained academic size ladder, and four colours. Body text is
+  10.8pt; page margins are 2.2cm left and right with a fixed 2cm top margin,
+  identical to the CV.
+- The first-page identity area now has an explicit height and isolated paragraph
+  spacing, so the CV, cover letter, and statement place their header rule at the
+  same vertical and horizontal coordinates.
+- Research and teaching statements enable a compact continuation header by
+  default. It includes the candidate name, document title, and page count.
+- Contact rendering now mirrors modernpro-cv, including optional icons, so the
+  same `profile` dictionary drives a CV, a cover letter, and a statement.
+- Paragraph spacing is now clearly larger than line spacing, so paragraphs read
+  as separate blocks.
+- `resolve-letter-config` takes named arguments instead of 28 positional ones.
+
+### Added
+
+- `preset: "compact" | "default" | "relaxed"` replaces `layout: (density: ...)`,
+  which still works. `accent:` sets the document's one colour in one place.
+- The starter templates ship a `profile.typ` holding your identity once.
+- Added `header-height` and `page-numbering` layout controls for exceptional
+  mastheads and continuation pages.
+
 ## [0.0.8] - 2025-12-10
 
 ### Added

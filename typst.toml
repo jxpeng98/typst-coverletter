@@ -1,12 +1,12 @@
 [package]
 name = "modernpro-coverletter"
-version = "0.0.8"
+version = "1.0.0"
 entrypoint = "modernpro-coverletter.typ"
-authors = [ "academic-template-collective",]
+authors = [ "Academic Template Collective",]
 repository = "https://example.invalid/academic-templates/modernpro-coverletter"
 license = "MIT"
-description = "A cover letter template with modern Sans font for job applications and other formal letters."
-keywords = [ "coverletter", "CV", "Job",]
+description = "A clean, modern cover letter and statement template for academic and professional applications."
+keywords = [ "coverletter", "cv", "academic", "job",]
 categories = [ "cv", "utility",]
 
 [template]
