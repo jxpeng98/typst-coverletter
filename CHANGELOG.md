@@ -49,7 +49,8 @@ legacy parameter still resolves.
 
 - `preset: "compact" | "default" | "relaxed"` replaces `layout: (density: ...)`,
   which still works. `accent:` sets the document's one colour in one place.
-- The starter templates ship a `profile.typ` holding your identity once.
+- Each starter keeps its editable profile dictionary inline, so cover letters
+  and statements are self-contained single-file documents.
 - Added `header-height` and `page-numbering` layout controls for exceptional
   mastheads and continuation pages.
 
