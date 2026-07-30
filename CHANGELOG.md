@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.0] - 2026-07-26
+## [1.0.0] - 2026-07-30
 
 Visual redesign, plus a body-style bug fix that changed how every letter has
 rendered since 0.0.x. The configuration API stays backward compatible: every
@@ -37,6 +37,13 @@ legacy parameter still resolves.
 - Paragraph spacing is now clearly larger than line spacing, so paragraphs read
   as separate blocks.
 - `resolve-letter-config` takes named arguments instead of 28 positional ones.
+- Public examples now use explicitly fictional people, institutions, projects,
+  claims, reserved domains, and placeholder identifiers.
+- The README now covers document selection, a first-edit workflow, shared
+  profiles, common recipes, continuation headers, and troubleshooting.
+- The release workflow now validates the package version, compiles both
+  document types, builds a complete archive, and publishes with the
+  repository-scoped GitHub token.
 
 ### Added
 

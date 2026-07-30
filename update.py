@@ -55,7 +55,7 @@ typ_file_path = Path('modernpro-coverletter.typ')
 # Define the content to prepend, ensure no leading newline before the first comment line
 new_content_to_prepend = f"""///////////////////////////////
 // modernpro-coverletter.typ
-// A cover letter template with modern Sans font for job applications and other formal letters.
+// A clean, modern academic cover letter and statement template.
 // Copyright (c) {new_year}
 // Author:  Academic Template Collective
 // License: MIT
@@ -186,4 +186,3 @@ def update_readme(readme_path, new_version):
 # Update README.md
 readme_path = 'README.md'
 update_readme(readme_path, new_version)
-

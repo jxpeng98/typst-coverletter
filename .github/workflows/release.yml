@@ -1,61 +1,86 @@
 name: Release
 
 on:
-    push:
-        tags:
-            - "*"
+  push:
+    tags:
+      - "*"
 
-env:
-    typst_coverletter: Typst-ModernPro-Coverletter
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-    build:
-        name: release
-        runs-on: ubuntu-latest
+  release:
+    runs-on: ubuntu-latest
 
-        steps:
-            - uses: actions/checkout@v4
+    steps:
+      - name: Checkout tagged source
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
-            - name: Zip
-              id: zip
-              run: |
-                  mkdir ${{ env.typst_coverletter }}
-                  cp ./modernpro-coverletter.typ ./example-coverletter.typ ./example-statement.typ ${{ env.typst_coverletter }}
-                  cp -r template/* ${{ env.typst_coverletter }}
-                  zip -r ${{ env.typst_coverletter }}.zip ./${{ env.typst_coverletter }}
+      - name: Set up Typst
+        uses: typst-community/setup-typst@v5
+        with:
+          typst-version: 0.15.1
 
-                  echo "tag_name=$(git tag --sort version:refname | tail -n 1)" >> "$GITHUB_ENV"
+      - name: Validate version and examples
+        shell: bash
+        run: |
+          set -euo pipefail
+          package_version=$(sed -nE 's/^version[[:space:]]*=[[:space:]]*"([^"]+)"/\1/p' typst.toml)
+          test "$package_version" = "$GITHUB_REF_NAME"
+          typst compile example-coverletter.typ /tmp/coverletter.pdf
+          typst compile example-statement.typ /tmp/statement.pdf
 
-            - name: Create Release
-              id: create_release
-              uses: actions/create-release@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
-                  VERSION: ${{ github.ref }}
-              with:
-                  tag_name: ${{ github.ref }}
-                  release_name: ${{ github.ref }}
-                  draft: false
-                  prerelease: false
+      - name: Build release archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist/modernpro-coverletter/template
 
-            - name: Upload coverletter zip
-              id: upload-coverletter-zip
-              uses: actions/upload-release-asset@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
-              with:
-                  upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: ./${{ env.typst_coverletter }}.zip
-                  asset_name: ${{ env.typst_coverletter }}-${{ github.ref_name }}.zip
-                  asset_content_type: application/zip
+          cp \
+            modernpro-coverletter.typ \
+            typst.toml \
+            README.md \
+            CHANGELOG.md \
+            LICENSE \
+            thumbnail.png \
+            example-coverletter.typ \
+            example-statement.typ \
+            dist/modernpro-coverletter/
+          cp -R template/. dist/modernpro-coverletter/template/
 
-            - name: Upload coverletter
-              id: upload-coverletter
-              uses: actions/upload-release-asset@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
-              with:
-                  upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: ./modernpro-coverletter.typ
-                  asset_name: modernpro-coverletter.typ
-                  asset_content_type: text/typst
+          (
+            cd dist
+            zip -r "modernpro-coverletter-${GITHUB_REF_NAME}.zip" modernpro-coverletter
+          )
+
+      - name: Extract release notes
+        shell: bash
+        run: |
+          set -euo pipefail
+          awk -v version="$GITHUB_REF_NAME" '
+            index($0, "## [" version "]") == 1 { capture = 1 }
+            capture && printed && index($0, "## [") == 1 { exit }
+            capture { print; printed = 1 }
+            END { if (!capture) exit 1 }
+          ' CHANGELOG.md > release-notes.md
+          test -s release-notes.md
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            "dist/modernpro-coverletter-${GITHUB_REF_NAME}.zip" \
+            modernpro-coverletter.typ \
+            template/profile.typ \
+            template/coverletter.typ \
+            template/statement.typ \
+            --verify-tag \
+            --title "modernpro-coverletter ${GITHUB_REF_NAME}" \
+            --notes-file release-notes.md
