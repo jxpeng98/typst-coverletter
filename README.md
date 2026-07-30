@@ -8,6 +8,9 @@ letter, and a statement read as one application.
 The default design is intentionally complete. Most users only need to provide
 their profile, the recipient, and the letter text.
 
+All people, institutions, positions, projects, and claims in the examples are
+fictional. Reserved domains and an all-zero ORCID are used deliberately.
+
 ## Preview
 
 ### Academic cover letter
@@ -18,16 +21,49 @@ their profile, the recipient, and the letter text.
 
 [![Research statement](screenshots/statement.png)](screenshots/statement.png)
 
+## Choose a document
+
+| Document | Start from | Best for |
+| --- | --- | --- |
+| Cover letter | `coverletter.typ` | A role, fellowship, grant, or programme application addressed to a recipient |
+| Statement | `statement.typ` | Research, teaching, diversity, service, or personal statements with section headings |
+
+Both documents use the same `profile.typ`. Keep the profile unchanged across an
+application so its header aligns with modernpro-cv.
+
 ## Quick start
 
-Create a project with the Typst CLI:
+Create and compile a project with the Typst CLI:
 
 ```bash
-typst init @preview/modernpro-coverletter
+typst init @preview/modernpro-coverletter:1.0.0
+cd modernpro-coverletter
+typst compile coverletter.typ
+typst compile statement.typ
 ```
 
-The generated project contains `profile.typ`, `coverletter.typ`, and
-`statement.typ`. Compile either document with `typst compile`.
+The generated project contains:
+
+```plain
+modernpro-coverletter/
+├── profile.typ       <- edit identity and contacts once
+├── coverletter.typ   <- recipient, letter body, and closing
+└── statement.typ     <- title, headings, and statement body
+```
+
+Use `typst watch coverletter.typ` or `typst watch statement.typ` for automatic
+recompilation while editing.
+
+### First edit checklist
+
+1. Replace the placeholder identity in `profile.typ`.
+2. In `coverletter.typ`, replace every recipient field and write the letter in
+   short block paragraphs.
+3. In `statement.typ`, rename the title and headings to match the requested
+   document.
+4. Remove example claims rather than adapting them as if they were factual.
+5. Compile to PDF and inspect the header, first body line, closing, and page
+   breaks.
 
 ## Minimal academic cover letter
 
@@ -122,8 +158,10 @@ The `recipient` group uses ordinary letter terminology:
 | `subject` | Sentence-case application subject |
 | `greeting` | Opening greeting |
 
-All fields except the date are optional. Empty optional fields do not leave
-placeholder gaps.
+Every recipient field is optional. If `date` is omitted, the template inserts
+today's date; other empty fields leave no placeholder gaps. For an application,
+provide at least the recipient or committee, organization, subject, and
+greeting whenever they are known.
 
 ## Statement template
 
@@ -149,6 +187,30 @@ Describe your strongest projects, methods, and contributions.
 = Future work
 Set out the next phase of the programme.
 ```
+
+Use level-one headings (`= Heading`) for the major argument. Prefer three to
+five descriptive sections over many short fragments. Statements add a compact
+continuation header from page 2 by default.
+
+## Share one profile across documents
+
+The profile dictionary is compatible with modernpro-cv. In a local application
+folder, keep one file and import it from each document:
+
+```plain
+application/
+├── profile.typ
+├── cv.typ
+├── coverletter.typ
+└── research-statement.typ
+```
+
+```typst
+#import "profile.typ": profile
+```
+
+This keeps the displayed name, role, location, contact order, and links
+consistent. It does not copy application-specific recipients or titles.
 
 ## Shared academic design
 
@@ -235,6 +297,46 @@ Escape `@` as `\@` inside Typst content. Two or three concise academic contacts
 usually fit best. FontAwesome remains usable as an opt-in content choice, but it
 is not required by the package or starter.
 
+## Common recipes
+
+### Add enclosures
+
+```typst
+closing: (
+  supplements: (
+    [Enclosure: Curriculum vitae],
+    [Enclosure: Research statement],
+  ),
+)
+```
+
+### Use a centered header
+
+```typst
+layout: (
+  header-style: "centered",
+  contact-layout: "inline",
+)
+```
+
+### Disable a statement continuation header
+
+```typst
+#show: statement.with(
+  profile: profile,
+  title: [Research Statement],
+  layout: (repeat-header: false),
+)
+```
+
+### Use an explicit date
+
+```typst
+recipient: (
+  date: [9 July 2026],
+)
+```
+
 ## Legacy compatibility
 
 Nothing was removed. The flat parameters `font-type`, `name`, `address`,
@@ -261,6 +363,17 @@ the configured `body-size`, and `line-spacing`, `paragraph-spacing`, `justify`,
 `first-line-indent`, and `link-colour` had no effect at all. Those settings now
 work. If you had compensated for the old behaviour with manual overrides,
 remove them.
+
+## Troubleshooting
+
+- **The email causes a syntax error:** escape `@` as `\@` inside Typst content.
+- **The first page looks crowded:** shorten the contact block and recipient
+  address before selecting the compact preset.
+- **A statement heading is too close to a page break:** keep it as a Typst
+  heading; the template marks styled headings as sticky.
+- **The letter unexpectedly becomes two pages:** remove repetition first, then
+  try `preset: "compact"`.
+- **A font is unavailable:** set `theme: (font: "Libertinus Serif")`.
 
 ## Local development
 
