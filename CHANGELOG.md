@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1] - 2026-08-27
+
+### Fixed
+
+- Fixed configuration fallback resolution so explicit theme, layout, and
+  legacy argument values are no longer ignored when a default exists.
+- Removed the obsolete `template/profile.typ` asset from the release workflow.
+
 ## [1.0.0] - 2026-07-30
 
 Visual redesign, plus a body-style bug fix that changed how every letter has

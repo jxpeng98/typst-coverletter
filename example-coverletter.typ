@@ -1,5 +1,7 @@
 #import "modernpro-coverletter.typ": *
 
+#assert.eq(_first-filled(("candidate",), default: "fallback"), "candidate")
+
 // All people, institutions, roles, and claims in this example are fictional.
 #show: coverletter.with(
   profile: (

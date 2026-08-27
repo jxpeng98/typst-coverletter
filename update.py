@@ -157,16 +157,10 @@ def update_readme(readme_path, new_version):
         print(f"An error occurred while reading the file: {exc}")
         return
 
-    # Pattern to match import statements with version number in README
-    import_pattern = re.compile(
-        r'#import\s+"@preview/modernpro-coverletter:([^"]+)"\s*:\s*\*',
-        re.MULTILINE
-    )
-
-    # Replace all occurrences with the new version
-    updated_content, replacements = import_pattern.subn(
-        f'#import "@preview/modernpro-coverletter:{new_version}": *',
-        original_content
+    updated_content, replacements = re.subn(
+        r'(@preview/modernpro-coverletter:)[^\s"]+',
+        rf'\g<1>{new_version}',
+        original_content,
     )
 
     if replacements == 0:

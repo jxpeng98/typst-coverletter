@@ -4,8 +4,8 @@
 // Copyright (c) 2026
 // Author:  Academic Template Collective
 // License: MIT
-// Version: 1.0.0
-// Date:    2026-07-30
+// Version: 1.0.1
+// Date:    2026-08-27
 // Email:   maintainers@example.invalid
 ///////////////////////////////
 
@@ -60,13 +60,12 @@
 }
 
 #let _first-filled(values, default: none) = {
-  let value = default
   for candidate in values {
-    if not is-filled(value) and is-filled(candidate) {
-      value = candidate
+    if is-filled(candidate) {
+      return candidate
     }
   }
-  value
+  return default
 }
 
 // A small set of rhythm presets keeps the public API simple while preserving

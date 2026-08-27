@@ -38,7 +38,7 @@ shared-file dependency.
 Create and compile a project with the Typst CLI:
 
 ```bash
-typst init @preview/modernpro-coverletter:1.0.0
+typst init @preview/modernpro-coverletter:1.0.1
 cd modernpro-coverletter
 typst compile coverletter.typ
 typst compile statement.typ
@@ -71,7 +71,7 @@ recompilation while editing.
 Keep your identity beside the letter content in the same source file:
 
 ```typst
-#import "@preview/modernpro-coverletter:1.0.0": *
+#import "@preview/modernpro-coverletter:1.0.1": *
 
 #let profile = (
   name: [Dr. Maya Chen],
@@ -166,7 +166,7 @@ second-level Typst headings are styled automatically, so a research statement
 stays easy to edit:
 
 ```typst
-#import "@preview/modernpro-coverletter:1.0.0": *
+#import "@preview/modernpro-coverletter:1.0.1": *
 
 #let profile = (
   name: [Dr. Maya Chen],

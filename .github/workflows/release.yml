@@ -78,7 +78,6 @@ jobs:
           gh release create "$GITHUB_REF_NAME" \
             "dist/modernpro-coverletter-${GITHUB_REF_NAME}.zip" \
             modernpro-coverletter.typ \
-            template/profile.typ \
             template/coverletter.typ \
             template/statement.typ \
             --verify-tag \
