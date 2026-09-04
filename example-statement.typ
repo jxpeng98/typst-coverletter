@@ -1,50 +1,47 @@
 #import "modernpro-coverletter.typ": *
 
-// All people, institutions, projects, and claims in this example are fictional.
+// Every person, place, institution, project, identifier, and claim below is an
+// explicit placeholder from the invented setting of Exampleland.
 #show: statement.with(
   profile: (
-    name: [Dr. Maya Chen],
-    role: [Lecturer in Computational Social Science],
-    address: [Edinburgh, United Kingdom],
+    name: [Dr. Nova Placeholder],
+    role: [Lecturer in Speculative Systems],
+    address: [Sample City, Exampleland],
     contacts: (
-      (text: [maya\@northbridge.example], link: "mailto:maya@northbridge.example"),
-      (text: [maya.example.org], link: "https://maya.example.org"),
-      (text: [ORCID~0000-0000-0000-0000], link: "https://orcid.org/0000-0000-0000-0000"),
+      (text: [nova\@candidate.invalid], link: "mailto:nova@candidate.invalid"),
+      (text: [nova.candidate.invalid], link: "https://nova.candidate.invalid"),
+      (text: [Fictional ID~0000-0000], link: "https://registry.example.invalid/0000-0000"),
     ),
   ),
-  title: [Research Statement],
+  title: [Fictional Research Statement],
 )
 
-= Research agenda
+= Imaginary research agenda
 
-My research asks how public institutions can use data-intensive systems without
-weakening accountability. I study the organisational decisions that surround a
-model: who defines the problem, what evidence counts as adequate, how errors
-are surfaced, and whether explanations change practice. This shifts attention
-from technical performance alone to the institutional conditions under which a
-system can be challenged and improved.
+My research takes place entirely in the invented setting of Exampleland. It asks
+how imaginary institutions evaluate simulated decision engines without weakening
+fictional accountability. I study who defines each hypothetical problem, what
+synthetic evidence counts, how invented errors are surfaced, and whether sample
+explanations change staged decisions.
 
-= Current programme
+= Simulated current programme
 
-My current work combines three methods. Audit studies reveal differences
-between stated governance procedures and operational decisions. Causal designs
-test whether specific forms of documentation or review alter those decisions.
-Participatory workshops show how affected communities define harms that are
-absent from administrative metrics. Together, these methods connect measurable
-effects with the reasons a policy succeeds or fails in practice.
+Within this fictional setting, my current programme combines synthetic audits,
+counterfactual trials, and staged workshops. The audits compare placeholder
+procedures with generated decisions. The trials test whether invented forms of
+documentation alter those decisions. The workshops ask imaginary communities
+to define harms omitted from sample metrics.
 
-One fictional project follows local-service teams as they review an automated
-eligibility tool. The study compares a standard model card with a structured
-public-audit protocol. The primary outcome is not whether reviewers report more
-information, but whether they identify consequential errors, change deployment
-conditions, and document unresolved disagreement.
+One invented project follows sample-service teams as they review a hypothetical
+eligibility engine. It compares a fictional model record with a simulated review
+protocol. Its outcomes are generated errors, staged deployment conditions, and
+documented disagreement among placeholder participants.
 
-= Future work
+= Hypothetical future work
 
-The next phase will examine how oversight travels across organisations. I plan
-to compare procurement, internal review, and external audit as three pathways
-for institutional learning. The programme will produce open instruments,
-preregistered evaluations, and practical guidance co-developed with public
-organisations. Its broader contribution is a theory of accountable adoption:
-technical evidence matters, but its effects depend on who can act on it and
-what happens when evidence remains contested.
+The next fictional phase will examine how oversight travels among Exampleland's
+imaginary organisations. It will compare sample procurement, internal review,
+and external audit as three simulated pathways for institutional learning. The
+programme will produce invented instruments, hypothetical evaluations, and
+guidance co-developed with fictional partners; none of these entities or claims
+maps to the real world.

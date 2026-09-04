@@ -1,4 +1,4 @@
-#import "@preview/modernpro-coverletter:1.0.1": *
+#import "@preview/modernpro-coverletter:1.0.2": *
 
 // Edit identity and contacts here. Keeping them beside the statement content
 // makes this starter a self-contained document with no personal-data imports.
@@ -7,9 +7,9 @@
   role: [Your Current Role],
   address: [City, Country],
   contacts: (
-    (text: [you\@example.edu], link: "mailto:you@example.edu"),
-    (text: [your-site.example], link: "https://your-site.example"),
-    (text: [ORCID~0000-0000-0000-0000], link: "https://orcid.org/0000-0000-0000-0000"),
+    (text: [name\@candidate.invalid], link: "mailto:name@candidate.invalid"),
+    (text: [site.candidate.invalid], link: "https://site.candidate.invalid"),
+    (text: [Fictional ID~0000-0000], link: "https://registry.example.invalid/0000-0000"),
   ),
 )
 

@@ -9,8 +9,8 @@ self-contained.
 The default design is intentionally complete. Most users only need to provide
 their profile, the recipient, and the letter text.
 
-All people, institutions, positions, projects, and claims in the examples are
-fictional. Reserved domains and an all-zero ORCID are used deliberately.
+All examples use explicit Placeholder entities from Exampleland and reserved
+`.invalid` domains; none maps to a real person, place, institution, or project.
 
 ## Preview
 
@@ -38,7 +38,7 @@ shared-file dependency.
 Create and compile a project with the Typst CLI:
 
 ```bash
-typst init @preview/modernpro-coverletter:1.0.1
+typst init @preview/modernpro-coverletter:1.0.2
 cd modernpro-coverletter
 typst compile coverletter.typ
 typst compile statement.typ
@@ -71,30 +71,30 @@ recompilation while editing.
 Keep your identity beside the letter content in the same source file:
 
 ```typst
-#import "@preview/modernpro-coverletter:1.0.1": *
+#import "@preview/modernpro-coverletter:1.0.2": *
 
 #let profile = (
-  name: [Dr. Maya Chen],
-  role: [Lecturer in Computational Social Science],
-  address: [Edinburgh, United Kingdom],
+  name: [Dr. Nova Placeholder],
+  role: [Lecturer in Speculative Systems],
+  address: [Sample City, Exampleland],
   contacts: (
-    (text: [maya\@northbridge.example], link: "mailto:maya@northbridge.example"),
-    (text: [maya.example.org], link: "https://maya.example.org"),
-    (text: [ORCID~0000-0000-0000-0000], link: "https://orcid.org/0000-0000-0000-0000"),
+    (text: [nova\@candidate.invalid], link: "mailto:nova@candidate.invalid"),
+    (text: [nova.candidate.invalid], link: "https://nova.candidate.invalid"),
+    (text: [Fictional ID~0000-0000], link: "https://registry.example.invalid/0000-0000"),
   ),
 )
 
 #show: coverletter.with(
   profile: profile,
   recipient: (
-    name: [Professor Eleanor Hughes],
-    role: [Chair, Faculty Search Committee],
-    department: [School of Public Policy],
-    organization: [Eastborough University],
-    address: [London, United Kingdom],
-    date: [9 July 2026],
-    subject: [Application for Lecturer in Digital Governance],
-    greeting: [Dear Professor Hughes and Members of the Committee,],
+    name: [Professor Taylor Demo],
+    role: [Chair, Fictional Search Committee],
+    department: [School of Speculative Policy],
+    organization: [Placeholder Institute],
+    address: [Demo Harbour, Exampleland],
+    date: [1 Imaginarymonth 20ZZ],
+    subject: [Application for Lecturer in Speculative Governance],
+    greeting: [Dear Professor Demo and Members of the Fictional Committee,],
   ),
 )
 
@@ -166,28 +166,28 @@ second-level Typst headings are styled automatically, so a research statement
 stays easy to edit:
 
 ```typst
-#import "@preview/modernpro-coverletter:1.0.1": *
+#import "@preview/modernpro-coverletter:1.0.2": *
 
 #let profile = (
-  name: [Dr. Maya Chen],
-  role: [Lecturer in Computational Social Science],
-  address: [Edinburgh, United Kingdom],
+  name: [Dr. Nova Placeholder],
+  role: [Lecturer in Speculative Systems],
+  address: [Sample City, Exampleland],
   contacts: (
-    (text: [maya\@northbridge.example], link: "mailto:maya@northbridge.example"),
-    (text: [maya.example.org], link: "https://maya.example.org"),
+    (text: [nova\@candidate.invalid], link: "mailto:nova@candidate.invalid"),
+    (text: [nova.candidate.invalid], link: "https://nova.candidate.invalid"),
   ),
 )
 
 #show: statement.with(
   profile: profile,
-  title: [Research Statement],
+  title: [Fictional Research Statement],
 )
 
-= Research agenda
-Introduce the question that connects your work.
+= Imaginary research agenda
+Introduce the question that connects the fictional programme.
 
-= Current programme
-Describe your strongest projects, methods, and contributions.
+= Simulated current programme
+Describe the placeholder projects, methods, and contributions.
 
 = Future work
 Set out the next phase of the programme.
@@ -266,8 +266,8 @@ Common layout keys are:
 | `preset` | Coordinated document rhythm: `"compact"`, `"default"`, or `"relaxed"` | `"default"` |
 | `margin` | Page margins | Academic margins above |
 | `first-line-indent` | Paragraph indent | `0em` |
-| `line-spacing` | Typst paragraph leading | `0.72em` at the default preset |
-| `paragraph-spacing` | Space between paragraphs | `1.35em` at the default preset |
+| `line-spacing` | Typst paragraph leading | `0.85em` at the default preset |
+| `paragraph-spacing` | Space between paragraphs | `1.55em` at the default preset |
 | `justify` | Fully justify body text | `false` |
 | `header-style` | `"split"` or `"centered"` | `"split"` |
 | `contact-layout` | `"stacked"` or `"inline"` contacts in a split header | `"stacked"` |
@@ -290,9 +290,9 @@ A contact may be linked, unlinked, or plain content, and may carry an optional
 
 ```typst
 contacts: (
-  (text: [you\@example.edu], link: "mailto:you@example.edu"),
-  (text: [your-site.example], link: "https://your-site.example"),
-  [ORCID 0000-0000-0000-0000],
+  (text: [name\@candidate.invalid], link: "mailto:name@candidate.invalid"),
+  (text: [site.candidate.invalid], link: "https://site.candidate.invalid"),
+  [Fictional ID 0000-0000],
 )
 ```
 

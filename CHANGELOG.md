@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.2] - 2026-09-04
+
+### Changed
+
+- Increased default and relaxed line, paragraph, header, and heading spacing so
+  cover letters and statements have a more comfortable reading rhythm.
+- Replaced example, starter, and preview content with explicitly fictional
+  Exampleland data and reserved `.invalid` addresses.
+
 ## [1.0.1] - 2026-08-27
 
 ### Fixed

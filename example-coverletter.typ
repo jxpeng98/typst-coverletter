@@ -2,56 +2,54 @@
 
 #assert.eq(_first-filled(("candidate",), default: "fallback"), "candidate")
 
-// All people, institutions, roles, and claims in this example are fictional.
+// Every person, place, institution, role, identifier, and claim below is an
+// explicit placeholder from the invented setting of Exampleland.
 #show: coverletter.with(
   profile: (
-    name: [Dr. Maya Chen],
-    role: [Lecturer in Computational Social Science],
-    address: [Edinburgh, United Kingdom],
+    name: [Dr. Nova Placeholder],
+    role: [Lecturer in Speculative Systems],
+    address: [Sample City, Exampleland],
     contacts: (
-      (text: [maya\@northbridge.example], link: "mailto:maya@northbridge.example"),
-      (text: [maya.example.org], link: "https://maya.example.org"),
-      (text: [ORCID~0000-0000-0000-0000], link: "https://orcid.org/0000-0000-0000-0000"),
+      (text: [nova\@candidate.invalid], link: "mailto:nova@candidate.invalid"),
+      (text: [nova.candidate.invalid], link: "https://nova.candidate.invalid"),
+      (text: [Fictional ID~0000-0000], link: "https://registry.example.invalid/0000-0000"),
     ),
   ),
   recipient: (
-    name: [Professor Eleanor Hughes],
-    role: [Chair, Faculty Search Committee],
-    department: [School of Public Policy],
-    organization: [Eastborough University],
-    address: [London, United Kingdom],
-    date: [9 July 2026],
-    subject: [Application for Lecturer in Digital Governance],
-    greeting: [Dear Professor Hughes and Members of the Committee,],
+    name: [Professor Taylor Demo],
+    role: [Chair, Fictional Search Committee],
+    department: [School of Speculative Policy],
+    organization: [Placeholder Institute],
+    address: [Demo Harbour, Exampleland],
+    date: [1 Imaginarymonth 20ZZ],
+    subject: [Application for Lecturer in Speculative Governance],
+    greeting: [Dear Professor Demo and Members of the Fictional Committee,],
   ),
   closing: (
     supplements: ([Enclosure: Curriculum vitae],),
   ),
 )
 
-I am applying for the Lecturer in Digital Governance position at Eastborough
-University. I am currently a Lecturer in Computational Social Science at
-Northbridge University, where I lead the Civic AI Lab. My research and teaching
-examine how public institutions evaluate, explain, and govern data-intensive
-systems, a focus that closely matches the School's work on accountable public
-innovation.
+I am applying for the entirely fictional Lecturer in Speculative Governance
+position at Placeholder Institute. I am currently a Lecturer in Speculative
+Systems at Exampleland University, where I lead the Placeholder Systems Lab. My
+research and teaching concern imaginary institutions and simulated decision
+engines in the invented setting of Exampleland.
 
-My research combines audit studies, causal inference, and participatory design.
-In a recent project, I worked with local-service teams to test how different
-forms of model documentation changed review decisions. That work developed into
-a broader programme on public audit, supported by a fictional New Investigator
-Award. At Eastborough, I would extend this programme by studying when oversight
-tools change institutional practice rather than simply improve disclosure.
+My fictional research combines synthetic audits, counterfactual trials, and
+staged workshops. In one invented project, sample-service teams tested how
+placeholder documentation changed generated review decisions. At Placeholder
+Institute, I would extend this simulated programme by studying how hypothetical
+oversight tools affect imaginary organisational practice.
 
-I teach computational research methods at undergraduate and postgraduate
-levels, supervise MSc dissertations, and design assignments around transparent
-and reproducible analysis. My teaching begins with substantive public-policy
-questions and introduces technical methods only when they help students answer
-those questions responsibly. I would be pleased to contribute to research
-methods, digital government, and the School's project-based teaching.
+I teach Speculative Research Methods, supervise sample projects, and design
+assignments around fictional evidence. My teaching begins with invented policy
+questions and introduces imaginary tools only when they help placeholder
+students answer those questions. I would be pleased to contribute to simulated
+research methods and the School's hypothetical project-based teaching.
 
-Eastborough's combination of public-policy scholarship, applied methods, and
-partnerships with civic organisations would provide an excellent setting for
-this work. Thank you for considering my application. I would welcome the
-opportunity to discuss how my research, teaching, and service could contribute
-to the School.
+Placeholder Institute's combination of speculative scholarship, sample methods,
+and fictional partnerships would provide an ideal imaginary setting for this
+work. Thank you for considering this example application. I would welcome a
+hypothetical discussion of how these invented activities could contribute to
+the fictional School.
