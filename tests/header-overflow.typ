@@ -1,7 +1,7 @@
 // Run: typst compile --root . tests/header-overflow.typ /tmp/letter-header.pdf
 // Optional --input keys: count, mode (stacked/inline/centered), icons (false/true/fontawesome),
 // long (true/false), preset, width, height (minimum header height in mm), kind (letter/statement).
-#import "../modernpro-coverletter.typ": coverletter, statement, resolve-letter-config, letter-contact-display
+#import "../modernpro-coverletter-plus.typ": coverletter, statement, resolve-letter-config, letter-contact-display
 #assert.eq(resolve-letter-config(layout: (header-style: "centered")).name-align, center)
 #assert.eq(resolve-letter-config(layout: (header-style: "centered"), name-align: right).name-align, right)
 #assert.eq(resolve-letter-config(layout: (header-style: "centered", name-align: left), name-align: right).name-align, left)

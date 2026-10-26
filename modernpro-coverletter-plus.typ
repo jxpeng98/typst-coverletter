@@ -1,12 +1,12 @@
 ///////////////////////////////
-// modernpro-coverletter.typ
+// modernpro-coverletter-plus.typ
 // A clean, modern academic cover letter and statement template.
 // Copyright (c) 2026
 // Author:  Academic Template Collective
 // License: MIT
-// Version: 1.0.3
-// Date:    2026-09-29
-// Email:   maintainers@example.invalid
+// Version: 1.0.0
+// Date:    2026-10-26
+// Email:   contact@valentinabanner.com
 ///////////////////////////////
 
 // Shared design tokens for the academic suite: one serif family, two weights,
@@ -42,6 +42,32 @@
 #let is-filled(value) = value != none and value != [] and value != ""
 
 #let as-bool(value) = value == true or value == "true"
+
+// Accepts one value or an array of lines. Arrays render one line each, so an
+// address can be written as ("123 Main St", "City, ST 00000").
+#let _lines(value) = if type(value) == array {
+  value.filter(line => is-filled(line)).join(linebreak())
+} else {
+  value
+}
+
+// Accepts plain content or a dictionary such as
+// (degree: "B.S. Computer Science", school: "Purdue University",
+//  graduation: "Expected May 2029", gpa: "3.9"). Returns the filled parts as an
+// array, each boxed so it never wraps in the middle of a part.
+#let _education-parts(education) = if type(education) == dictionary {
+  let gpa = education.at("gpa", default: none)
+  (
+    education.at("degree", default: none),
+    education.at("school", default: none),
+    education.at("graduation", default: none),
+    if is-filled(gpa) { [GPA #gpa] } else { none },
+  ).filter(part => is-filled(part)).map(part => box(part))
+} else if is-filled(education) {
+  (education,)
+} else {
+  ()
+}
 
 #let _option(source, key, default) = if source == none {
   default
@@ -131,6 +157,7 @@
   margin: none,
   name: none,
   address: none,
+  education: none,
   contacts: (),
   primary-colour: none,
   headings-colour: none,
@@ -198,6 +225,7 @@
     name: _option(profile, "name", name),
     role: _option-any(profile, ("role", "headline", "position"), none),
     address: _option(profile, "address", address),
+    education: _option(profile, "education", education),
     contacts: _option(profile, "contacts", contacts),
 
     text: _first-filled((_option-any(theme, ("text", "primary-colour"), none), primary-colour), default: d.text),
@@ -244,10 +272,19 @@
     name-weight: _option(theme, "name-weight", name-weight),
     body-weight: _option(theme, "body-weight", body-weight),
     date-format: _option(layout, "date-format", date-format),
+    // "right" keeps the date beside the recipient; "top" puts it on its own
+    // line above the recipient, as in a standard business letter.
+    date-position: _option(layout, "date-position", "right"),
+    // Without a greeting, write "Dear <name>," or "Dear Hiring Manager,".
+    auto-greeting: as-bool(_option(layout, "auto-greeting", true)),
     justify: as-bool(_option(layout, "justify", false)),
     header-style: _option(layout, "header-style", "split"),
     contact-layout: _option(layout, "contact-layout", "stacked"),
 
+    // Line spacing inside the header and recipient blocks (address lines etc.),
+    // independent of the body's line spacing.
+    header-leading: _option(layout, "header-leading", 0.45em),
+    recipient-leading: _option(layout, "recipient-leading", 0.5em),
     header-row-gap: _option(layout, "header-row-gap", rhythm.header-row-gap),
     header-rule-gap: _option(layout, "header-rule-gap", rhythm.header-rule-gap),
     header-content-gap: _option(layout, "header-content-gap", rhythm.header-content-gap),
@@ -374,7 +411,7 @@
   // it and a tight identity stack collides. Extending the bottom edge fixes the
   // whole header at once, exactly as in modernpro-cv.
   set text(bottom-edge: "descender")
-  set par(spacing: 0pt, first-line-indent: 0em)
+  set par(spacing: 0pt, first-line-indent: 0em, leading: cfg.header-leading)
 
   let identity = (
     if is-filled(cfg.name) {
@@ -384,7 +421,7 @@
       align(cfg.name-align, text(cfg.role-size, fill: cfg.accent, weight: "bold")[#cfg.role])
     },
     if is-filled(cfg.address) {
-      align(cfg.address-align, text(cfg.address-size, fill: cfg.muted)[#cfg.address])
+      align(cfg.address-align, text(cfg.address-size, fill: cfg.muted)[#_lines(cfg.address)])
     },
   ).filter(item => item != none)
 
@@ -396,12 +433,38 @@
   } else {
     letter-contact-stack(cfg.contacts, cfg)
   }
+  // Education (degree, school, graduation) sits under the contact info, one
+  // part per line, in the same column and alignment as the contacts.
+  let education-parts = _education-parts(cfg.education)
+  let education-block = if education-parts.len() == 0 {
+    none
+  } else {
+    grid(
+      columns: 1fr,
+      row-gutter: cfg.header-row-gap,
+      ..education-parts.map(part => align(
+        cfg.contact-align,
+        text(cfg.contact-size, fill: cfg.text)[#part],
+      )),
+    )
+  }
+  let right-items = (contact-block, education-block).filter(item => item != none).map(item => align(cfg.contact-align, item))
+  let right-block = if right-items.len() == 0 {
+    none
+  } else {
+    grid(columns: 1fr, row-gutter: cfg.header-row-gap * 2.5, ..right-items)
+  }
+
   let header-content(vertical) = if cfg.header-style == "centered" {
     [
       #align(center, grid(columns: 1fr, row-gutter: cfg.header-row-gap, ..identity))
       #if has-contacts {
         v(cfg.header-row-gap)
         align(cfg.contact-align)[#letter-contact-display(cfg.contacts, cfg)]
+      }
+      #if education-parts.len() > 0 {
+        v(cfg.header-row-gap)
+        align(center, text(cfg.contact-size, fill: cfg.text)[#education-parts.join(" · ")])
       }
     ]
   } else {
@@ -411,7 +474,7 @@
       align: vertical,
       grid(columns: 1fr, row-gutter: cfg.header-row-gap, ..identity),
       align(cfg.contact-align + vertical, [
-        #if contact-block != none { contact-block }
+        #if right-block != none { right-block }
       ]),
     )
   }
@@ -457,16 +520,32 @@
 }
 
 #let recipient-block(recipient, cfg) = {
-  let greeting = _first-filled((
-    _option(recipient, "greeting", none),
-    _option(recipient, "start-title", none),
-  ))
+  let application = _option(recipient, "application", none)
+  let reference = _option(recipient, "reference", none)
+  let name = _option(recipient, "name", none)
+
+  // "Re: Software Engineering Intern (Ref. 12345)" when `application` is given.
+  let composed-subject = if is-filled(application) {
+    let tail = if is-filled(reference) { [#" (Ref. "#reference#")"] } else { [] }
+    [Re: #application#tail]
+  } else {
+    none
+  }
   let subject = _first-filled((
     _option(recipient, "subject", none),
     _option(recipient, "cl-title", none),
+    composed-subject,
+  ))
+  let greeting = _first-filled((
+    _option(recipient, "greeting", none),
+    _option(recipient, "start-title", none),
+    if cfg.auto-greeting {
+      if is-filled(name) { [Dear #name,] } else { [Dear Hiring Manager,] }
+    } else {
+      none
+    },
   ))
   let date = _option(recipient, "date", none)
-  let name = _option(recipient, "name", none)
   let role = _first-filled((
     _option(recipient, "role", none),
     _option(recipient, "position", none),
@@ -483,35 +562,46 @@
   } else {
     datetime.today(offset: auto).display(cfg.date-format)
   }
+  let date-text = text(cfg.recipient-size, fill: cfg.date-colour)[#displayed-date]
+
+  let recipient-lines = [
+    #if is-filled(name) {
+      text(cfg.recipient-size, fill: cfg.heading, weight: "bold")[#name\ ]
+    }
+    #if is-filled(role) {
+      text(cfg.recipient-size, fill: cfg.text)[#role\ ]
+    }
+    #if is-filled(department) {
+      text(cfg.recipient-size, fill: cfg.text)[#department\ ]
+    }
+    #if is-filled(institution) {
+      text(cfg.recipient-size, fill: cfg.text)[#institution\ ]
+    }
+    #if is-filled(address) {
+      text(cfg.recipient-size, fill: cfg.muted)[#_lines(address)\ ]
+    }
+    #if is-filled(postcode) {
+      text(cfg.recipient-size, fill: cfg.muted)[#postcode]
+    }
+  ]
 
   v(cfg.recipient-top-gap)
+  if cfg.date-position == "top" {
+    block(breakable: false, date-text)
+    v(cfg.recipient-subject-gap)
+  }
   block(breakable: false)[
-    #set par(leading: cfg.line-spacing, spacing: 0pt)
-    #grid(
-      columns: (1fr, auto),
-      column-gutter: 1.5em,
-      [
-        #if is-filled(name) {
-          text(cfg.recipient-size, fill: cfg.heading, weight: "bold")[#name\ ]
-        }
-        #if is-filled(role) {
-          text(cfg.recipient-size, fill: cfg.text)[#role\ ]
-        }
-        #if is-filled(department) {
-          text(cfg.recipient-size, fill: cfg.text)[#department\ ]
-        }
-        #if is-filled(institution) {
-          text(cfg.recipient-size, fill: cfg.text)[#institution\ ]
-        }
-        #if is-filled(address) {
-          text(cfg.recipient-size, fill: cfg.muted)[#address\ ]
-        }
-        #if is-filled(postcode) {
-          text(cfg.recipient-size, fill: cfg.muted)[#postcode]
-        }
-      ],
-      align(right, text(cfg.recipient-size, fill: cfg.date-colour)[#displayed-date]),
-    )
+    #set par(leading: cfg.recipient-leading, spacing: 0pt)
+    #if cfg.date-position == "top" {
+      recipient-lines
+    } else {
+      grid(
+        columns: (1fr, auto),
+        column-gutter: 1.5em,
+        recipient-lines,
+        align(right, date-text),
+      )
+    }
   ]
 
   v(cfg.recipient-subject-gap)
@@ -536,8 +626,40 @@
       v(closing-cfg.signature-spacing)
     }
 
+    // Optional handwritten-signature image (or any content) above the typed name.
+    #if is-filled(closing-cfg.signature) {
+      closing-cfg.signature
+      v(closing-cfg.signature-spacing)
+    }
+
     #if is-filled(cfg.name) {
       text(cfg.body-size, fill: cfg.heading, weight: closing-cfg.signature-weight)[#cfg.name]
+    }
+
+    #if is-filled(closing-cfg.enclosures) or is-filled(closing-cfg.cc) {
+      v(closing-cfg.supplement-spacing)
+    }
+
+    #if is-filled(closing-cfg.enclosures) {
+      let items = if type(closing-cfg.enclosures) == array {
+        closing-cfg.enclosures
+      } else {
+        (closing-cfg.enclosures,)
+      }
+      let label = if items.len() > 1 { "Enclosures: " } else { "Enclosure: " }
+      text(cfg.supplement-size, fill: cfg.muted)[#label#items.join(", ")]
+      linebreak()
+    }
+
+    #if is-filled(closing-cfg.cc) {
+      let items = if type(closing-cfg.cc) == array {
+        closing-cfg.cc
+      } else {
+        (closing-cfg.cc,)
+      }
+      let label = "cc: "
+      text(cfg.supplement-size, fill: cfg.muted)[#label#items.join(", ")]
+      linebreak()
     }
 
     #if closing-cfg.supplements != none {
@@ -565,8 +687,12 @@
   margin: none,
   name: none,
   address: none,
+  education: none,
   contacts: (),
   supplements: none,
+  enclosures: none,
+  cc: none,
+  signature: none,
   salutation: "Sincerely,",
   primary-colour: none,
   headings-colour: none,
@@ -606,6 +732,7 @@
     margin: margin,
     name: name,
     address: address,
+    education: education,
     contacts: contacts,
     primary-colour: primary-colour,
     headings-colour: headings-colour,
@@ -640,6 +767,9 @@
   let closing-cfg = (
     salutation: _option(closing, "salutation", salutation),
     supplements: _option(closing, "supplements", supplements),
+    enclosures: _option(closing, "enclosures", enclosures),
+    cc: _option(closing, "cc", cc),
+    signature: _option(closing, "signature", signature),
     salutation-weight: _option(closing, "salutation-weight", salutation-weight),
     signature-weight: _option(closing, "signature-weight", signature-weight),
     closing-spacing: _option(closing, "closing-spacing", closing-spacing),

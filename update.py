@@ -50,18 +50,18 @@ print(f"Updated TOML file saved to {file_path}")
 new_year = datetime.now().year
 new_date = datetime.now().strftime("%Y-%m-%d")
 # Define the path to your .typ file
-typ_file_path = Path('modernpro-coverletter.typ')
+typ_file_path = Path('modernpro-coverletter-plus.typ')
 
 # Define the content to prepend, ensure no leading newline before the first comment line
 new_content_to_prepend = f"""///////////////////////////////
-// modernpro-coverletter.typ
+// modernpro-coverletter-plus.typ
 // A clean, modern academic cover letter and statement template.
 // Copyright (c) {new_year}
 // Author:  Academic Template Collective
 // License: MIT
 // Version: {new_version}
 // Date:    {new_date}
-// Email:   maintainers@example.invalid
+// Email:   contact@valentinabanner.com
 ///////////////////////////////
 
 """  # Ensuring only the intended newlines are included
@@ -112,7 +112,7 @@ def update_main(main_typ_file_path, new_version):
         
     # Pattern to match the existing header, assuming it's always at the start of the file
     header_pattern = re.compile(
-        r'^#import\s+"@preview/modernpro-coverletter:([^"]+)"\s*:\s*\*\s*\n',
+        r'^#import\s+"@preview/modernpro-coverletter-plus:([^"]+)"\s*:\s*\*\s*\n',
         re.MULTILINE
     )
 
@@ -158,7 +158,7 @@ def update_readme(readme_path, new_version):
         return
 
     updated_content, replacements = re.subn(
-        r'(@preview/modernpro-coverletter:)[^\s"]+',
+        r'(@preview/modernpro-coverletter-plus:)[^\s"]+',
         rf'\g<1>{new_version}',
         original_content,
     )

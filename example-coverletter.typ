@@ -1,55 +1,61 @@
-#import "modernpro-coverletter.typ": *
+#import "modernpro-coverletter-plus.typ": *
 
-#assert.eq(_first-filled(("candidate",), default: "fallback"), "candidate")
-
-// Every person, place, institution, role, identifier, and claim below is an
-// explicit placeholder from the invented setting of Exampleland.
-#show: coverletter.with(
-  profile: (
-    name: [Dr. Nova Placeholder],
-    role: [Lecturer in Speculative Systems],
-    address: [Sample City, Exampleland],
-    contacts: (
-      (text: [nova\@candidate.invalid], link: "mailto:nova@candidate.invalid"),
-      (text: [nova.candidate.invalid], link: "https://nova.candidate.invalid"),
-      (text: [Fictional ID~0000-0000], link: "https://registry.example.invalid/0000-0000"),
-    ),
+// Edit identity and contacts here. Keeping them beside the letter content
+// makes this starter a self-contained document with no personal-data imports.
+#let profile = (
+  name: [Your Name],
+  // Shown under your contacts, one part per line. Plain content also works:
+  //   education: [Degree, University]
+  // Add `gpa: [0.00]` if you want it listed.
+  education: (
+    degree: [Degree, Major],
+    school: [University Name],
+    graduation: [Expected Month Year],
   ),
-  recipient: (
-    name: [Professor Taylor Demo],
-    role: [Chair, Fictional Search Committee],
-    department: [School of Speculative Policy],
-    organization: [Placeholder Institute],
-    address: [Demo Harbour, Exampleland],
-    date: [1 Imaginarymonth 20ZZ],
-    subject: [Application for Lecturer in Speculative Governance],
-    greeting: [Dear Professor Demo and Members of the Fictional Committee,],
-  ),
-  closing: (
-    supplements: ([Enclosure: Curriculum vitae],),
+  // One entry per line
+  address: ([Street Address], [City, State ZIP]),
+  contacts: (
+    (text: [name\@candidate.invalid], link: "mailto:name@candidate.invalid"),
+    (text: [+0 (000) 000-0000]),
+    (text: [site.candidate.invalid], link: "https://site.candidate.invalid"),
   ),
 )
 
-I am applying for the entirely fictional Lecturer in Speculative Governance
-position at Placeholder Institute. I am currently a Lecturer in Speculative
-Systems at Exampleland University, where I lead the Placeholder Systems Lab. My
-research and teaching concern imaginary institutions and simulated decision
-engines in the invented setting of Exampleland.
+// Formal cover letter. Everything below `profile` and `recipient` is optional:
+//   preset: "compact" | "default" | "relaxed"   vertical rhythm
+//   accent: rgb("#1e3a5f")                      the one colour in the document
+//   layout: (date-position: "top")              date above the recipient, as in a business letter
+//   layout: (auto-greeting: false)              turn off the automatic greeting
+#show: coverletter.with(
+  profile: profile,
+  layout: (date-position: "top"),
+  recipient: (
+    name: [Recipient Name],
+    role: [Recipient Title],
+    department: [Department],
+    organization: [Company or Institution],
+    address: ([Street Address], [City, State ZIP]),
+    // The subject line is built as "Re: Position Title (Ref. Job ID)".
+    // Delete `reference` if there is no job ID, or write `subject: [...]` to override.
+    application: [Position Title],
+    reference: [Job ID],
+    // The date fills in automatically; uncomment to set it yourself.
+    // date: [1 January 2026],
+    // The greeting defaults to "Dear <name>," or "Dear Hiring Manager," without a name.
+    // greeting: [Dear Members of the Committee,],
+  ),
+  salutation: "Sincerely,",
+  // Printed as "Enclosure: ..." (or "Enclosures: ..." with more than one).
+  enclosures: ([Resume],),
+  // cc: ([Name],),
+  // signature: image("signature.png", height: 1.2cm),
+)
 
-My fictional research combines synthetic audits, counterfactual trials, and
-staged workshops. In one invented project, sample-service teams tested how
-placeholder documentation changed generated review decisions. At Placeholder
-Institute, I would extend this simulated programme by studying how hypothetical
-oversight tools affect imaginary organisational practice.
+State the position you are applying for, your school and year, and why the role
+and company interest you.
 
-I teach Speculative Research Methods, supervise sample projects, and design
-assignments around fictional evidence. My teaching begins with invented policy
-questions and introduces imaginary tools only when they help placeholder
-students answer those questions. I would be pleased to contribute to simulated
-research methods and the School's hypothetical project-based teaching.
+Describe your most relevant project, coursework, or experience: what you built or
+did, the skills you used, and the result.
 
-Placeholder Institute's combination of speculative scholarship, sample methods,
-and fictional partnerships would provide an ideal imaginary setting for this
-work. Thank you for considering this example application. I would welcome a
-hypothetical discussion of how these invented activities could contribute to
-the fictional School.
+Explain what you want to learn from the role and what you would contribute, then
+close by thanking the reader and saying you would welcome the chance to talk.

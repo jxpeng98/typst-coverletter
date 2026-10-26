@@ -1,6 +1,6 @@
 [package]
-name = "modernpro-coverletter"
-version = "1.0.3"
+name = "modernpro-coverlette-plus"
+version = "1.0.0"
 entrypoint = "modernpro-coverletter.typ"
 authors = [ "Academic Template Collective",]
 license = "MIT"
